@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:refily/controllers/fetch_product_provider.dart';
 import 'package:refily/presentation/screens/cart_screen.dart';
 import 'package:refily/presentation/widgets/categories.dart';
+import 'package:refily/presentation/widgets/shimmer_product_screen.dart';
 
 class ProductScreen extends ConsumerStatefulWidget {
   const ProductScreen({super.key});
@@ -175,7 +176,7 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
                 );
               },
               error: (error, trace) => Center(child: Text('Error: $error')),
-              loading: () => const Center(child: CircularProgressIndicator()),
+              loading: () => buildShimmerLoading(),
             ),
           ),
         ],
