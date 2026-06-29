@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:refily/controllers/fetch_product_provider.dart';
 import 'package:refily/presentation/screens/cart_screen.dart';
-import 'package:refily/presentation/widgets/categories.dart';
+import 'package:refily/presentation/widgets/shimmer_chips_button.dart';
 import 'package:refily/presentation/widgets/shimmer_product_screen.dart';
 
 class ProductScreen extends ConsumerStatefulWidget {
@@ -19,6 +19,7 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     final productAsync = ref.watch(fetchProductProvider);
+    final categoriesAsync = ref.watch(productCategoriesProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -59,48 +60,52 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
           // 2. Horizontal Categories Chips Section
           SizedBox(
             height: 50,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: categories.length,
-              padding: const EdgeInsets.only(
-                left: 16.0,
-                right: 8.0,
-                bottom: 8.0,
-              ),
-              itemBuilder: (context, index) {
-                final category = categories[index];
-                final isSelected = selectedCategory == category;
-
-                return Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: ChoiceChip(
-                    label: Text(category),
-                    labelStyle: GoogleFonts.poppins(
-                      color: isSelected ? Colors.white : Colors.black,
-                      fontWeight: isSelected
-                          ? FontWeight.bold
-                          : FontWeight.normal,
-                    ),
-                    selected: isSelected,
-                    selectedColor: Colors.blueGrey[800],
-                    backgroundColor: Colors.grey[200],
-                    side: BorderSide.none,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    onSelected: (bool selected) {
-                      setState(() {
-                        selectedCategory = category;
-                      });
-                      // TODO: Category filter logic
-                    },
+            child: categoriesAsync.when(
+              data: (categoriesList) {
+                return ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: categoriesList.length,
+                  padding: const EdgeInsets.only(
+                    left: 16.0,
+                    right: 8.0,
+                    bottom: 8.0,
                   ),
+                  itemBuilder: (context, index) {
+                    final category = categoriesList[index];
+                    final isSelected = selectedCategory == category;
+
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: ChoiceChip(
+                        label: Text(category),
+                        labelStyle: GoogleFonts.poppins(
+                          color: isSelected ? Colors.white : Colors.black,
+                          fontWeight: isSelected
+                              ? FontWeight.bold
+                              : FontWeight.normal,
+                        ),
+                        selected: isSelected,
+                        selectedColor: Colors.blueGrey[800],
+                        backgroundColor: Colors.grey[200],
+                        side: BorderSide.none,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        onSelected: (bool selected) {
+                          setState(() {
+                            selectedCategory = category;
+                          });
+                          // TODO: Category filter logic
+                        },
+                      ),
+                    );
+                  },
                 );
               },
+              error: (error, stackTrace) => const SizedBox.shrink(),
+              loading: () => chipsShimmer() ,
             ),
           ),
-
-          const SizedBox(height: 8),
 
           // 3. Products Grid Section
           Expanded(

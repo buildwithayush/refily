@@ -9,3 +9,14 @@ Future<List<Product>> fetchProduct(Ref ref) async {
   final product = ref.watch(mockProductRepositoryProvider);
   return product.fetchAllProduct();
 }
+
+// *  Product Categories Provider
+
+@riverpod
+Future<List<String>> productCategories(Ref ref)async{
+  final categoriesList = await ref.watch(fetchProductProvider.future);
+  final distinctCategories = categoriesList.map((p) => p.category ).toSet().toList();
+  print(" Distinct categories  $distinctCategories");
+  return distinctCategories;
+
+}

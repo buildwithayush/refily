@@ -3,7 +3,7 @@ import 'package:refily/models/product.dart';
 
 class MockProductRepository {
   Future<List<Product>> fetchAllProduct() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 3));
     return products;
   }
 }

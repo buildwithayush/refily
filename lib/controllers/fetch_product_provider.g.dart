@@ -47,3 +47,42 @@ final class FetchProductProvider
 }
 
 String _$fetchProductHash() => r'3b81d232831b8d769b25c52b73e53d669cf59db3';
+
+@ProviderFor(productCategories)
+final productCategoriesProvider = ProductCategoriesProvider._();
+
+final class ProductCategoriesProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<String>>,
+          List<String>,
+          FutureOr<List<String>>
+        >
+    with $FutureModifier<List<String>>, $FutureProvider<List<String>> {
+  ProductCategoriesProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'productCategoriesProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$productCategoriesHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<List<String>> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<String>> create(Ref ref) {
+    return productCategories(ref);
+  }
+}
+
+String _$productCategoriesHash() => r'88c89f7094cc1aebe6d6375a785e53b9c5c1aa6b';
