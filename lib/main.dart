@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:refily/presentation/screens/product_screen.dart';
+import 'package:refily/features/products/presentation/screens/product_screen.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -8,7 +8,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

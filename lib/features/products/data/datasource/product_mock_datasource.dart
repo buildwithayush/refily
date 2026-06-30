@@ -1,4 +1,4 @@
-import 'package:refily/models/product.dart';
+import 'package:refily/features/products/models/product.dart';
 
 final List<Product> products = [
   Product(

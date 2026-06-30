@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:refily/controllers/fetch_product_provider.dart';
-import 'package:refily/presentation/screens/cart_screen.dart';
-import 'package:refily/presentation/widgets/shimmer_chips_button.dart';
-import 'package:refily/presentation/widgets/shimmer_product_screen.dart';
+import 'package:refily/features/products/controllers/fetch_product_provider.dart';
+import 'package:refily/features/products/presentation/screens/cart_screen.dart';
+import 'package:refily/features/products/presentation/widgets/shimmer_chips_button.dart';
+import 'package:refily/features/products/presentation/widgets/shimmer_product_screen.dart';
 
 class ProductScreen extends ConsumerStatefulWidget {
   const ProductScreen({super.key});
@@ -18,9 +18,9 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final productAsync = ref.watch(fetchProductProvider);
+    final filteredProductAsync = ref.watch(filteredCategoryProvider);
     final categoriesAsync = ref.watch(productCategoriesProvider);
-
+    final currentCategory = ref.watch(selectedCategoryProvider);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -52,7 +52,7 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
                 contentPadding: const EdgeInsets.symmetric(vertical: 0),
               ),
               onChanged: (value) {
-                // TODO: Search logic
+                ref.read(searchQueryProvider.notifier).updateQuery(value);
               },
             ),
           ),
@@ -72,7 +72,7 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
                   ),
                   itemBuilder: (context, index) {
                     final category = categoriesList[index];
-                    final isSelected = selectedCategory == category;
+                    final isSelected = currentCategory == category;
 
                     return Padding(
                       padding: const EdgeInsets.only(right: 8.0),
@@ -91,11 +91,10 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        onSelected: (bool selected) {
-                          setState(() {
-                            selectedCategory = category;
-                          });
-                          // TODO: Category filter logic
+                        onSelected: (_) {
+                          ref
+                              .read(selectedCategoryProvider.notifier)
+                              .selected(category);
                         },
                       ),
                     );
@@ -103,13 +102,13 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
                 );
               },
               error: (error, stackTrace) => const SizedBox.shrink(),
-              loading: () => chipsShimmer() ,
+              loading: () => chipsShimmer(),
             ),
           ),
 
           // 3. Products Grid Section
           Expanded(
-            child: productAsync.when(
+            child: filteredProductAsync.when(
               data: (products) {
                 if (products.isEmpty) {
                   return const Center(child: Text('No products found.'));
