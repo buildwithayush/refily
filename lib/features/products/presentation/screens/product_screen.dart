@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:refily/core/router/app_routes.dart';
 import 'package:refily/features/products/controllers/fetch_product_provider.dart';
-import 'package:refily/features/products/presentation/screens/cart_screen.dart';
 import 'package:refily/features/products/presentation/widgets/shimmer_chips_button.dart';
 import 'package:refily/features/products/presentation/widgets/shimmer_product_screen.dart';
 
@@ -192,10 +193,7 @@ class _ProductScreenState extends ConsumerState<ProductScreen> {
             IconButton(onPressed: () {}, icon: const Icon(Icons.home)),
             IconButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const CartScreen()),
-                );
+               context.push(AppRoutes.cart);
               },
               icon: const Icon(Icons.shopping_cart),
             ),
