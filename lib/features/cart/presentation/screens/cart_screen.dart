@@ -12,8 +12,11 @@ class _CartScreenState extends ConsumerState<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Cart')),
-      body: const Center(child: Text('Cart Screen',)),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: const Text('Cart'),
+      ),
+      body: const Center(child: Text('Cart Screen')),
     );
   }
 }

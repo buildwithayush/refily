@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'fetch_product_provider.dart';
+part of 'banner_images_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,41 +9,41 @@ part of 'fetch_product_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(fetchProduct)
-final fetchProductProvider = FetchProductProvider._();
+@ProviderFor(banner)
+final bannerProvider = BannerProvider._();
 
-final class FetchProductProvider
+final class BannerProvider
     extends
         $FunctionalProvider<
-          AsyncValue<List<Product>>,
-          List<Product>,
-          FutureOr<List<Product>>
+          AsyncValue<List<String>>,
+          List<String>,
+          FutureOr<List<String>>
         >
-    with $FutureModifier<List<Product>>, $FutureProvider<List<Product>> {
-  FetchProductProvider._()
+    with $FutureModifier<List<String>>, $FutureProvider<List<String>> {
+  BannerProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'fetchProductProvider',
+        name: r'bannerProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$fetchProductHash();
+  String debugGetCreateSourceHash() => _$bannerHash();
 
   @$internal
   @override
-  $FutureProviderElement<List<Product>> $createElement(
+  $FutureProviderElement<List<String>> $createElement(
     $ProviderPointer pointer,
   ) => $FutureProviderElement(pointer);
 
   @override
-  FutureOr<List<Product>> create(Ref ref) {
-    return fetchProduct(ref);
+  FutureOr<List<String>> create(Ref ref) {
+    return banner(ref);
   }
 }
 
-String _$fetchProductHash() => r'3b81d232831b8d769b25c52b73e53d669cf59db3';
+String _$bannerHash() => r'058fef31bc0749c0fb8528b8a474df3989ca52da';
