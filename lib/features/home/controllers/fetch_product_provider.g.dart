@@ -227,4 +227,4 @@ final class FilteredCategoryProvider
   }
 }
 
-String _$filteredCategoryHash() => r'bed1c27a4801728e29c61bb504ef9f3ef6ba8d39';
+String _$filteredCategoryHash() => r'f37e8b079dc0f4449cfc8ffab4209d4be638066f';
