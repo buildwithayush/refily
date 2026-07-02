@@ -4,6 +4,7 @@ import 'package:refily/features/cart/presentation/screens/cart_screen.dart';
 import 'package:refily/features/categories/presentation/screens/categories_screen.dart';
 import 'package:refily/features/home/presentation/screens/home_screen.dart';
 import 'package:refily/features/profile/presentation/screens/profile_screen.dart';
+import 'package:refily/features/settings/presentation/screens/setting_screen.dart';
 import 'package:refily/features/shared/presentation/screens/bottom_naviagtion_screen.dart';
 import 'package:refily/features/wishlist/presentation/screens/wishlist_screen.dart';
 // import 'package:refily/features/wishlist/presentation/screens/wishlist_screen.dart';
@@ -36,6 +37,10 @@ class AppRouter {
           GoRoute(
             path: AppRoutes.profile,
             builder: (context, state) => const ProfileScreen(),
+          ),
+          GoRoute(
+            path: AppRoutes.settings,
+            builder: (context, state) => const SettingScreen(),
           ),
         ],
       ),
