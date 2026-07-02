@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:refily/core/router/app_routes.dart';
+import 'package:refily/core/theme/theme_extension.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -12,10 +15,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
+        title: Row(
+          children: [
+            Text('Profile', style: context.textTheme.bodyLarge),
+            const Spacer(),
+            IconButton(onPressed: () {
+              context.push(AppRoutes.settings);
+            }, icon: const Icon(Icons.settings)),
+          ],
+        ),
       ),
-      body: const Center(
-        child: Text('Profile Screen'),
+      body: Center(
+        child: Text('Profile Screen', style: context.textTheme.titleMedium),
       ),
     );
   }

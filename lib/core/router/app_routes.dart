@@ -5,4 +5,5 @@ abstract final class AppRoutes  {
   static const cart = '/cart';
   static const wishlist = '/wishlist';
   static const profile = '/profile';
+  static const settings = '/settings';
 }
