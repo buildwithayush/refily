@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:refily/core/theme/theme_extension.dart';
+import 'package:refily/features/cart/presentation/controller/cart_controller.dart';
 import 'package:refily/features/home/controllers/banner_images_provider.dart';
 import 'package:refily/features/home/controllers/fetch_product_provider.dart';
 import 'package:refily/features/home/presentation/widgets/banner_shimmer.dart';
@@ -283,13 +285,57 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                   const SizedBox(height: 4),
-                                  Text(
-                                    '₹${product.price}',
-                                    style: GoogleFonts.plusJakartaSans(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 15,
-                                      color: theme.colorScheme.primary,
-                                    ),
+                                  
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        '₹${product.price}',
+                                        style: context.textTheme.titleMedium
+                                      ),
+                                      //* Add to Cart Button
+                                      Material(
+                                        color: theme.colorScheme.primary
+                                            .withValues(alpha: 0.1),
+                                        borderRadius: BorderRadius.circular(8),
+                                        child: InkWell(
+                                          borderRadius: BorderRadius.circular(
+                                            8,
+                                          ),
+                                          onTap: () {
+                                            ref
+                                                .read(
+                                                  cartControllerProvider
+                                                      .notifier,
+                                                )
+                                                .addToCart(product);
+
+                                            //* SnackBar 
+                                            ScaffoldMessenger.of(
+                                              context,
+                                            ).showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  "${product.name} added to cart!",
+                                                ),
+                                                duration: const Duration(
+                                                  seconds: 1,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(6.0),
+                                            child: Icon(
+                                              Icons.add_shopping_cart_rounded,
+                                              size: 18,
+                                              color: theme.colorScheme.primary,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),

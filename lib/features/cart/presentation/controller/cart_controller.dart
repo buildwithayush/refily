@@ -4,7 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'cart_controller.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class CartController extends _$CartController {
   @override
   Map<int, CartItem> build() {
@@ -54,7 +54,7 @@ class CartController extends _$CartController {
 // * COMPUTED PROVIDERS (Real-time Calculations)
 // * ==========================================
 
-@riverpod
+@Riverpod(keepAlive: true)
 int cartCount(Ref ref) {
   final cartMap = ref.watch(cartControllerProvider);
   int count = 0;
@@ -64,4 +64,24 @@ int cartCount(Ref ref) {
   });
 
   return count;
+}
+
+@Riverpod(keepAlive: true)
+double cartTotal(Ref ref) {
+  final cartMap = ref.watch(cartControllerProvider);
+
+  double total = 0.0;
+
+  cartMap.forEach((productId, cartItem) {
+    total += cartItem.product.price * cartItem.quantity;
+  });
+
+  return total;
+}
+
+@Riverpod(keepAlive: true)
+List<CartItem> cartList(Ref ref) {
+  final cartMap = ref.watch(cartControllerProvider);
+
+  return cartMap.values.toList();
 }

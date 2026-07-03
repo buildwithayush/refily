@@ -20,7 +20,7 @@ final class CartControllerProvider
         argument: null,
         retry: null,
         name: r'cartControllerProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -41,7 +41,7 @@ final class CartControllerProvider
   }
 }
 
-String _$cartControllerHash() => r'6a640199abc84907b03d80bb911d7c3806fcf55b';
+String _$cartControllerHash() => r'a5fcca3dcfa78c0d917e5507ac010c77f158299d';
 
 abstract class _$CartController extends $Notifier<Map<int, CartItem>> {
   Map<int, CartItem> build();
@@ -72,7 +72,7 @@ final class CartCountProvider extends $FunctionalProvider<int, int, int>
         argument: null,
         retry: null,
         name: r'cartCountProvider',
-        isAutoDispose: true,
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
@@ -99,4 +99,86 @@ final class CartCountProvider extends $FunctionalProvider<int, int, int>
   }
 }
 
-String _$cartCountHash() => r'7affd8db9787a61d7e49d7a98ea439d2c76f067f';
+String _$cartCountHash() => r'f8f21488bd14e36350162f28de1ea5776c138655';
+
+@ProviderFor(cartTotal)
+final cartTotalProvider = CartTotalProvider._();
+
+final class CartTotalProvider
+    extends $FunctionalProvider<double, double, double>
+    with $Provider<double> {
+  CartTotalProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'cartTotalProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$cartTotalHash();
+
+  @$internal
+  @override
+  $ProviderElement<double> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  double create(Ref ref) {
+    return cartTotal(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(double value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<double>(value),
+    );
+  }
+}
+
+String _$cartTotalHash() => r'1c4a822cf651fed6af43257b0ddbcece704a8098';
+
+@ProviderFor(cartList)
+final cartListProvider = CartListProvider._();
+
+final class CartListProvider
+    extends $FunctionalProvider<List<CartItem>, List<CartItem>, List<CartItem>>
+    with $Provider<List<CartItem>> {
+  CartListProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'cartListProvider',
+        isAutoDispose: false,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$cartListHash();
+
+  @$internal
+  @override
+  $ProviderElement<List<CartItem>> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  List<CartItem> create(Ref ref) {
+    return cartList(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<CartItem> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<CartItem>>(value),
+    );
+  }
+}
+
+String _$cartListHash() => r'1366cda01def0786420a170e59f0a4501aaf0334';
