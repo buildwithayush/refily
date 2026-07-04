@@ -264,7 +264,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                 color: theme.colorScheme.surfaceContainerHighest
                                     .withValues(alpha: 0.3),
                                 child: Image.asset(
-                                  product.image,
+                                  product.images[0],
                                   fit: BoxFit.contain,
                                 ),
                               ),

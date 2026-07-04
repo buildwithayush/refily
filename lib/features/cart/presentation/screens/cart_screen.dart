@@ -122,7 +122,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                               ),
                               padding: const EdgeInsets.all(8),
                               child: Image.asset(
-                                cartItem.product.image,
+                                cartItem.product.images[0],
                                 fit: BoxFit.contain,
                               ),
                             ),
