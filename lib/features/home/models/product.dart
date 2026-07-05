@@ -3,6 +3,7 @@ class Product {
   final String name;
   final String brand;
   final String category;
+  final String subcategory;
   final double price;
   final double originalPrice;
   final double rating;
@@ -18,6 +19,7 @@ class Product {
     required this.name,
     required this.brand,
     required this.category,
+    required this.subcategory,
     required this.price,
     required this.originalPrice,
     required this.rating,
