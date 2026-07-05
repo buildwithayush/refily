@@ -26,6 +26,7 @@ class ProductInfoSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 4),
+        
         // Product Name
         Text(
           product.name,
@@ -33,7 +34,18 @@ class ProductInfoSection extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
+        const SizedBox(height: 4), 
+
+        // - SUBCATEGORY TAG -
+        Text(
+          product.subcategory, 
+          style: context.textTheme.bodySmall?.copyWith(
+            color: context.colorScheme.primary.withValues(alpha: 0.8),
+            fontWeight: FontWeight.w500,
+          ),
+        ),
         const SizedBox(height: 8),
+        
         // Rating & Reviews Row
         Row(
           children: [
@@ -66,6 +78,7 @@ class ProductInfoSection extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 16),
+        
         // Price & Discount Block
         Row(
           crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -99,6 +112,7 @@ class ProductInfoSection extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 12),
+        
         // Dynamic Stock Tag
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
