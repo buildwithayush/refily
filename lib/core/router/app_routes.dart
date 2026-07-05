@@ -6,4 +6,5 @@ abstract final class AppRoutes  {
   static const wishlist = '/wishlist';
   static const profile = '/profile';
   static const settings = '/settings';
+   static const productDetails = '/productDetails';
 }

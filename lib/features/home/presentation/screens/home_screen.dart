@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:refily/core/router/app_routes.dart';
 import 'package:refily/core/theme/theme_extension.dart';
 import 'package:refily/features/cart/presentation/controller/cart_controller.dart';
 import 'package:refily/features/home/controllers/banner_images_provider.dart';
@@ -259,13 +261,23 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Expanded(
-                              child: Container(
-                                width: double.infinity,
-                                color: theme.colorScheme.surfaceContainerHighest
-                                    .withValues(alpha: 0.3),
-                                child: Image.asset(
-                                  product.images[0],
-                                  fit: BoxFit.contain,
+                              child: InkWell(
+                                onTap: () {
+                                  context.push(
+                                    AppRoutes.productDetails,
+                                    extra: product.id,
+                                  );
+                                },
+                                child: Container(
+                                  width: double.infinity,
+                                  color: theme
+                                      .colorScheme
+                                      .surfaceContainerHighest
+                                      .withValues(alpha: 0.3),
+                                  child: Image.asset(
+                                    product.images[0],
+                                    fit: BoxFit.contain,
+                                  ),
                                 ),
                               ),
                             ),
@@ -285,14 +297,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                   const SizedBox(height: 4),
-                                  
+
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         '₹${product.price}',
-                                        style: context.textTheme.titleMedium
+                                        style: context.textTheme.titleMedium,
                                       ),
                                       //* Add to Cart Button
                                       Material(
@@ -311,7 +323,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                                 )
                                                 .addToCart(product);
 
-                                            //* SnackBar 
+                                            //* SnackBar
                                             ScaffoldMessenger.of(
                                               context,
                                             ).showSnackBar(
