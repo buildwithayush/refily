@@ -1,13 +1,13 @@
-import 'package:refily/features/home/controllers/mock_repository_provider.dart';
 import 'package:refily/features/product/data/models/product.dart';
+import 'package:refily/features/product/providers/product_repository_impl_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'fetch_product_provider.g.dart';
 
 @riverpod
 Future<List<Product>> fetchProduct(Ref ref) async {
-  final product = ref.watch(mockProductRepositoryProvider);
-  return product.fetchAllProduct();
+  final product = ref.watch(productRepositoryProvider);
+  return product.fetchAllProducts();
 }
 
 // *  Product Categories Provider
