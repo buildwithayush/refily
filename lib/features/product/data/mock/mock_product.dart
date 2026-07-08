@@ -1,4 +1,4 @@
-import 'package:refily/features/home/models/product.dart';
+import 'package:refily/features/product/data/models/product.dart';
 
 final List<Product> products = [
   const Product(

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:refily/features/product_details/presentation/providers/product_detail_provider.dart';
-import 'package:refily/features/product_details/presentation/widgets/detail_quantity_selector.dart';
-import 'package:refily/features/product_details/presentation/widgets/product_hero_section.dart';
-import 'package:refily/features/product_details/presentation/widgets/product_info_section.dart';
-import 'package:refily/features/product_details/presentation/widgets/related_products_list.dart';
-import 'package:refily/features/product_details/presentation/widgets/specifications_table.dart';
-import 'package:refily/features/product_details/presentation/widgets/expandable_description.dart';
+import 'package:refily/features/product/presentation/providers/product_detail_provider.dart';
+import 'package:refily/features/product/presentation/widgets/detail_quantity_selector.dart';
+import 'package:refily/features/product/presentation/widgets/product_hero_section.dart';
+import 'package:refily/features/product/presentation/widgets/product_info_section.dart';
+import 'package:refily/features/product/presentation/widgets/related_products_list.dart';
+import 'package:refily/features/product/presentation/widgets/specifications_table.dart';
+import 'package:refily/features/product/presentation/widgets/expandable_description.dart';
 
 class ProductDetailScreen extends ConsumerWidget {
   final int productId;

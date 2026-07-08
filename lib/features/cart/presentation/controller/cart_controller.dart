@@ -1,5 +1,5 @@
 import 'package:refily/features/cart/domain/models/cart_item.dart';
-import 'package:refily/features/home/models/product.dart';
+import 'package:refily/features/product/data/models/product.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'cart_controller.g.dart';

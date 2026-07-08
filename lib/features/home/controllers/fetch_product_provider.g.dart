@@ -46,7 +46,7 @@ final class FetchProductProvider
   }
 }
 
-String _$fetchProductHash() => r'3b81d232831b8d769b25c52b73e53d669cf59db3';
+String _$fetchProductHash() => r'da417941ed051950b8119ff2f395cced8fd29778';
 
 @ProviderFor(productCategories)
 final productCategoriesProvider = ProductCategoriesProvider._();
