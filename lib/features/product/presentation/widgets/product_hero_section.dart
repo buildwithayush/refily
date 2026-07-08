@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:refily/core/theme/theme_extension.dart';
-import 'package:refily/features/home/models/product.dart';
-import 'package:refily/features/product_details/presentation/providers/product_detail_provider.dart';
+import 'package:refily/features/product/data/models/product.dart';
+import 'package:refily/features/product/presentation/providers/product_detail_provider.dart';
 
 class ProductHeroSection extends ConsumerStatefulWidget {
   final Product product;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:refily/core/theme/theme_extension.dart';
-import 'package:refily/features/home/models/product.dart';
+import 'package:refily/features/product/data/models/product.dart';
 
 class ProductInfoSection extends StatelessWidget {
   final Product product;

@@ -1,5 +1,5 @@
 import 'package:refily/features/home/controllers/fetch_product_provider.dart';
-import 'package:refily/features/home/models/product.dart';
+import 'package:refily/features/product/data/models/product.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'product_detail_provider.g.dart';
