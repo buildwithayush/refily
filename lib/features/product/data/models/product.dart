@@ -1,45 +1,41 @@
-class Product {
-  final int id;
-  final String name;
-  final String brand;
-  final String category;
-  final String subcategory;
-  final double price;
-  final double originalPrice;
-  final double rating;
-  final int reviewCount;
-  final String description;
-  final List<String> images; 
-  final int stock;
-  final Map<String, String> specifications; 
-  final List<String> tags;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  const Product({
-    required this.id,
-    required this.name,
-    required this.brand,
-    required this.category,
-    required this.subcategory,
-    required this.price,
-    required this.originalPrice,
-    required this.rating,
-    required this.reviewCount,
-    required this.description,
-    required this.images,
-    required this.stock,
-    required this.specifications,
-    required this.tags,
-  });
+part 'product.freezed.dart';
+part 'product.g.dart';
 
-  // Getter for Stock Status UI
+@freezed
+abstract class Product with _$Product {
+  const factory Product({
+    required int id,
+    required int categoryId,
+    required String name,
+    required String brand,
+    required String category,
+    required String subcategory,
+    required double price,
+    required double originalPrice,
+    required double rating,
+    required int reviewCount,
+    required String description,
+    required List<String> images,
+    required int stock,
+    required Map<String, String> specifications,
+    required List<String> tags,
+  }) = _Product;
+
+  factory Product.fromJson(Map<String, dynamic> json) =>
+      _$ProductFromJson(json);
+}
+
+extension ProductX on Product {
   String get stockStatus {
     if (stock <= 0) return "Out of Stock";
     if (stock < 5) return "Only $stock left!";
     return "In Stock";
   }
-  // Getter for discount
+
   int get discountPercentage {
-  if (originalPrice == 0) return 0;
-  return (((originalPrice - price) / originalPrice) * 100).round();
-}
+    if (originalPrice == 0) return 0;
+    return (((originalPrice - price) / originalPrice) * 100).round();
+  }
 }
