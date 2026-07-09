@@ -1,4 +1,4 @@
-import 'package:refily/features/categories/domain/models/category_model.dart';
+import 'package:refily/features/categories/domain/models/category.dart';
 
 abstract class CategoryRepository {
   Future<List<Category>> fetchAllCategories();

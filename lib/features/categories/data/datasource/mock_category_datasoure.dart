@@ -1,6 +1,6 @@
 
 import 'package:refily/features/categories/data/mock/mock_category.dart';
-import 'package:refily/features/categories/domain/models/category_model.dart';
+import 'package:refily/features/categories/domain/models/category.dart';
 
 class MockCategoryDatasource {
   Future<List<Category>> getCategories() async {

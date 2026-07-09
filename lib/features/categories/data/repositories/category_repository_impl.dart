@@ -1,5 +1,5 @@
 import 'package:refily/features/categories/data/datasource/mock_category_datasoure.dart';
-import 'package:refily/features/categories/domain/models/category_model.dart';
+import 'package:refily/features/categories/domain/models/category.dart';
 import 'package:refily/features/categories/domain/repositories/category_repostiory.dart';
 
 class CategoryRepositoryImpl implements CategoryRepository {

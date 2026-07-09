@@ -1,6 +1,6 @@
 
 
-import 'package:refily/features/categories/domain/models/category_model.dart';
+import 'package:refily/features/categories/domain/models/category.dart';
 import 'package:refily/features/categories/providers/category_repository_impl_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
