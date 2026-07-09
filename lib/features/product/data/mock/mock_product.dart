@@ -3,6 +3,7 @@ import 'package:refily/features/product/data/models/product.dart';
 final List<Product> products = [
   const Product(
     id: 1,
+    categoryId: 5,
     name: "Burger",
     brand: "Foodie's Corner",
     category: "Food",
@@ -23,6 +24,7 @@ final List<Product> products = [
   ),
   const Product(
     id: 2,
+    categoryId: 5,
     name: "Pizza",
     brand: "Foodie's Corner",
     category: "Food",
@@ -39,6 +41,7 @@ final List<Product> products = [
   ),
   const Product(
     id: 3,
+    categoryId: 4,
     name: "Circuit Board",
     brand: "TechCore",
     category: "Electronics",
@@ -59,6 +62,7 @@ final List<Product> products = [
   ),
   const Product(
     id: 4,
+    categoryId: 4,
     name: "CPU",
     brand: "TechCore",
     category: "Electronics",
@@ -79,6 +83,7 @@ final List<Product> products = [
   ),
   const Product(
     id: 5,
+    categoryId: 1,
     name: "Ducati Bike",
     brand: "Ducati",
     category: "Bikes",
@@ -99,6 +104,7 @@ final List<Product> products = [
   ),
   const Product(
     id: 6,
+    categoryId: 1,
     name: "Suzuki Bike",
     brand: "Suzuki",
     category: "Bikes",
@@ -119,6 +125,7 @@ final List<Product> products = [
   ),
   const Product(
     id: 7,
+    categoryId: 2,
     name: "Book",
     brand: "Penguin",
     category: "Study",
@@ -139,6 +146,7 @@ final List<Product> products = [
   ),
   const Product(
     id: 8,
+    categoryId: 2,
     name: "Stack of Books",
     brand: "Oxford",
     category: "Study",
@@ -159,6 +167,7 @@ final List<Product> products = [
   ),
   const Product(
     id: 9,
+    categoryId: 3,
     name: "Car Suzuki",
     brand: "Suzuki",
     category: "Car",
@@ -179,6 +188,7 @@ final List<Product> products = [
   ),
   const Product(
     id: 10,
+    categoryId: 4,
     name: "iPhone",
     brand: "Apple",
     category: "Electronics",
@@ -199,6 +209,7 @@ final List<Product> products = [
   ),
   const Product(
     id: 11,
+    categoryId: 4,
     name: "New TV",
     brand: "Samsung",
     category: "Electronics",
@@ -219,6 +230,7 @@ final List<Product> products = [
   ),
   const Product(
     id: 12,
+    categoryId: 4,
     name: "Television",
     brand: "LG",
     category: "Electronics",
@@ -239,6 +251,7 @@ final List<Product> products = [
   ),
   const Product(
     id: 13,
+    categoryId: 4,
     name: "Smartphone",
     brand: "OnePlus",
     category: "Electronics",
@@ -255,6 +268,7 @@ final List<Product> products = [
   ),
   const Product(
     id: 14,
+    categoryId: 5,
     name: "Banana",
     brand: "Farm Fresh",
     category: "Food",
@@ -271,6 +285,7 @@ final List<Product> products = [
   ),
   const Product(
     id: 15,
+    categoryId: 5,
     name: "Burger",
     brand: "Foodie's Corner",
     category: "Food",
@@ -291,6 +306,7 @@ final List<Product> products = [
   ),
   const Product(
     id: 16,
+    categoryId: 5,
     name: "Butter",
     brand: "Amul",
     category: "Food",
@@ -307,6 +323,7 @@ final List<Product> products = [
   ),
   const Product(
     id: 17,
+    categoryId: 5,
     name: "French Fries",
     brand: "Foodie's Corner",
     category: "Food",
@@ -323,6 +340,7 @@ final List<Product> products = [
   ),
   const Product(
     id: 18,
+    categoryId: 5,
     name: "Healthy Food",
     brand: "Nutri Bowl",
     category: "Food",
@@ -340,6 +358,7 @@ final List<Product> products = [
   ),
   const Product(
     id: 19,
+    categoryId: 5,
     name: "Strawberry",
     brand: "Farm Fresh",
     category: "Food",
