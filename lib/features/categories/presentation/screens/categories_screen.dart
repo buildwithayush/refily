@@ -1,117 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CategoriesScreen extends StatefulWidget {
+import 'package:refily/features/categories/presentation/controllers/category_controller.dart';
+
+class CategoriesScreen extends ConsumerStatefulWidget {
   const CategoriesScreen({super.key});
 
   @override
-  State<CategoriesScreen> createState() => _HomeScreenState();
+  ConsumerState<CategoriesScreen> createState() => _CategoriesScreenState();
 }
 
-class _HomeScreenState extends State<CategoriesScreen> {
-  final List<String> productImages = [
-    'assets/home/bags1.jpg',
-    'assets/home/bed1.jpg',
-    'assets/home/bike1.jpg',
-    'assets/home/fridge1.jpg',
-    'assets/home/pan1.jpg',
-  ];
-
+class _CategoriesScreenState extends ConsumerState<CategoriesScreen> {
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
+    final categoryAsync = ref.watch(categoryControllerProvider);
     return Scaffold(
-      backgroundColor:
-          theme.colorScheme.surfaceContainerLow, // Subtle light background
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: theme.colorScheme.surface,
-        elevation: 0,
-        centerTitle: false,
-        title: Text(
-          'Categories',
-          style: GoogleFonts.plusJakartaSans(
-            fontWeight: FontWeight.w700,
-            fontSize: 22,
-            color: theme.colorScheme.onSurface,
-          ),
-        ),
-      ),
-
-      body: GridView.builder(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        itemCount: productImages.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 14,
-          mainAxisSpacing: 14,
-          childAspectRatio: 0.78,
-        ),
-        itemBuilder: (context, index) {
-          return Container(
-            decoration: BoxDecoration(
-              color: theme.colorScheme.surface,
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.03),
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Product Image Area
-                  Expanded(
-                    child: Container(
-                      width: double.infinity,
-                      color: theme.colorScheme.surfaceContainerHighest
-                          .withValues(alpha: 0.3),
-                      child: Image.asset(
-                        productImages[index],
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-
-                  // Product Info Area
-                  Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Premium Bag ${index + 1}',
-                          style: GoogleFonts.plusJakartaSans(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14,
-                            color: theme.colorScheme.onSurface,
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          '₹${(index + 1) * 1499}',
-                          style: GoogleFonts.plusJakartaSans(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 15,
-                            color: theme.colorScheme.primary,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+      appBar: AppBar(title: const Text('Categories Screen')),
+      body: categoryAsync.when(
+        data: (category) {
+          return GestureDetector(
+            onTap: (){
+              
+            },
+            child: GridView.builder(
+              itemCount: category.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
               ),
+              itemBuilder: (context, index) {
+                final categories = category[index];
+                return Image.asset(
+                  height: 200,
+                  width: 200,
+                  fit: BoxFit.contain, categories.image);
+              },
             ),
           );
         },
+        error: (error, stackTrace) => Center(child: Text('Error $error')),
+        loading: () => const Center(child: CircularProgressIndicator()),
       ),
     );
   }
