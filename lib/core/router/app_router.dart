@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:refily/core/router/app_routes.dart';
 import 'package:refily/features/cart/presentation/screens/cart_screen.dart';
+import 'package:refily/features/categories/presentation/screens/categories_product_screen.dart';
 import 'package:refily/features/categories/presentation/screens/categories_screen.dart';
 import 'package:refily/features/home/presentation/screens/home_screen.dart';
 import 'package:refily/features/product/presentation/screens/product_detail_screen.dart';
@@ -22,6 +23,17 @@ class AppRouter {
           GoRoute(
             path: AppRoutes.category,
             builder: (context, state) => const CategoriesScreen(),
+          ),
+          GoRoute(
+            path: AppRoutes.categoryProduct,
+            builder: (context, state) {
+              final data = state.extra as Map<String, dynamic>;
+
+              return CategoryProductsScreen(
+                categoryId: data['categoryId'] as int,
+                categoryName: data['categoryName'] as String,
+              );
+            },
           ),
           GoRoute(
             path: AppRoutes.cart,
