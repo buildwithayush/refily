@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:refily/core/theme/theme_extension.dart';
 import 'package:refily/features/product/data/models/product.dart';
-import 'package:refily/features/product/presentation/providers/product_detail_provider.dart';
+import 'package:refily/features/wishlist/presentation/controllers/wishlist_controller.dart';
 
 class ProductHeroSection extends ConsumerStatefulWidget {
   final Product product;
@@ -18,8 +18,11 @@ class _ProductHeroSectionState extends ConsumerState<ProductHeroSection> {
 
   @override
   Widget build(BuildContext context) {
-    final wishlist = ref.watch(wishListProvider);
-    final isFavorite = wishlist.contains(widget.product.id);
+    final wishlistAsync = ref.watch(wishlistControllerProvider);
+
+    final wishlistSet = wishlistAsync.value ?? {};
+
+    final isFavorite = wishlistSet.any((p) => p.id == widget.product.id);
 
     return SliverAppBar(
       leadingWidth: 60,
@@ -39,22 +42,35 @@ class _ProductHeroSectionState extends ConsumerState<ProductHeroSection> {
         ),
       ),
       actions: [
-        CircleAvatar(
-          backgroundColor: context.colorScheme.surfaceContainerHighest
-              .withValues(alpha: 0.8),
-          child: IconButton(
-            icon: Icon(
-              isFavorite ? Icons.favorite : Icons.favorite_border,
-              color: isFavorite ? Colors.red : context.colorScheme.primary,
+        Padding(
+          padding: const EdgeInsets.only(right: 15),
+          child: CircleAvatar(
+            backgroundColor: context.colorScheme.surfaceContainerHighest
+                .withValues(alpha: 0.8),
+            child: IconButton(
+              icon: Icon(
+                isFavorite
+                    ? Icons.favorite_rounded
+                    : Icons.favorite_border_rounded,
+
+                color: isFavorite
+                    ? Colors.redAccent
+                    : context.colorScheme.primary,
+              ),
+              onPressed: () {
+                final wishlistNotifier = ref.read(
+                  wishlistControllerProvider.notifier,
+                );
+
+                if (isFavorite) {
+                  wishlistNotifier.removeItem(widget.product.id);
+                } else {
+                  wishlistNotifier.addItem(widget.product);
+                }
+              },
             ),
-            onPressed: () {
-              ref
-                  .read(wishListProvider.notifier)
-                  .toggleFavorite(widget.product.id);
-            },
           ),
         ),
-        const SizedBox(width: 8),
         CircleAvatar(
           backgroundColor: context.colorScheme.surfaceContainerHighest
               .withValues(alpha: 0.8),

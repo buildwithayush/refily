@@ -10,6 +10,7 @@ import 'package:refily/features/home/controllers/fetch_product_provider.dart';
 import 'package:refily/features/home/presentation/widgets/banner_shimmer.dart';
 import 'package:refily/features/home/presentation/widgets/chips_shimmer.dart';
 import 'package:refily/features/home/presentation/widgets/products_shimmer.dart';
+import 'package:refily/features/shared/widgets/refily_appbar.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -39,13 +40,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final bannerImages = ref.watch(bannerProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Refily",
-          style: GoogleFonts.poppins(fontWeight: FontWeight.w600),
-        ),
-        elevation: 0,
-      ),
+      appBar: const RefilyAppBar(appBarName: 'Refily'),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
