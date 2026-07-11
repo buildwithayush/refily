@@ -1,9 +1,9 @@
 import 'package:refily/features/categories/domain/models/category.dart';
 
 final List<Category> categories = [
-  const Category(id: 1, name: 'Study', imageUrl: 'assets/categories/book.png'),
+  const Category(id: 2, name: 'Study', imageUrl: 'assets/categories/book.png'),
   const Category(
-    id: 2,
+    id: 5,
     name: 'Food',
     imageUrl: 'assets/categories/burger-real.png',
   ),
@@ -18,7 +18,7 @@ final List<Category> categories = [
     imageUrl: 'assets/categories/circuit-board.png',
   ),
   const Category(
-    id: 5,
+    id: 1,
     name: 'Bikes',
     imageUrl: 'assets/categories/ducati-photo.png',
   ),
