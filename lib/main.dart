@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:refily/core/providers/theme_provider.dart';
 import 'package:refily/core/router/app_router.dart';
+import 'package:refily/core/services/supabase_service.dart';
 import 'package:refily/core/theme/app_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -9,6 +11,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final prefs = await SharedPreferences.getInstance();
+
+  await dotenv.load(fileName: ".env");
+  await SupabaseService.initialize();
   runApp(
     ProviderScope(
       overrides: [sharedPreferencesProvider.overrideWithValue(prefs)],
