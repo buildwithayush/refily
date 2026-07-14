@@ -65,7 +65,7 @@ final class FetchCategoryProductProvider
 }
 
 String _$fetchCategoryProductHash() =>
-    r'168c87f35ef8e642ee796703a4f7beb4c3ddf828';
+    r'6e66d12f3cd03880f5af32baaaeaa033597b7e33';
 
 final class FetchCategoryProductFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<Product>>, int> {

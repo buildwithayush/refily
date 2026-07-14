@@ -5,6 +5,7 @@ import 'package:refily/core/router/app_routes.dart';
 import 'package:refily/features/categories/presentation/controllers/category_controller.dart';
 import 'package:refily/features/categories/presentation/widgets/categories_grid_skeleton.dart';
 import 'package:refily/features/categories/presentation/widgets/category_card.dart';
+import 'package:refily/features/shared/widgets/refily_appbar.dart';
 
 class CategoriesScreen extends ConsumerWidget {
   const CategoriesScreen({super.key});
@@ -14,7 +15,7 @@ class CategoriesScreen extends ConsumerWidget {
     final categoriesAsync = ref.watch(categoryControllerProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Categories')),
+      appBar: const RefilyAppBar(appBarName: 'Categories'),
       body: Padding(
         padding: const EdgeInsets.only(top: 20),
         child: categoriesAsync.when(
