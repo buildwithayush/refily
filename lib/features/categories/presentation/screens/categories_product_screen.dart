@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:refily/core/router/app_routes.dart';
 import 'package:refily/core/theme/theme_extension.dart';
-import 'package:refily/features/categories/presentation/controllers/category_product_controller.dart';
 import 'package:refily/features/categories/presentation/widgets/product_grid_skeleton.dart';
+import 'package:refily/features/home/controllers/category_products_provider.dart';
 
 class CategoryProductsScreen extends ConsumerWidget {
   final int categoryId;
@@ -60,10 +60,14 @@ class CategoryProductsScreen extends ConsumerWidget {
                               borderRadius: const BorderRadius.vertical(
                                 top: Radius.circular(12),
                               ),
-                              child: Image.asset(
-                                product.images[0],
+                              child: Image.network(
+                                product.images.first,
                                 fit: BoxFit.cover,
-                                width: double.infinity,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    const Icon(
+                                      Icons.broken_image_outlined,
+                                      size: 40,
+                                    ),
                               ),
                             ),
                           ),

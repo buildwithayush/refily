@@ -7,15 +7,17 @@ part 'product.g.dart';
 abstract class Product with _$Product {
   const factory Product({
     required int id,
-    required int categoryId,
+
+    @JsonKey(name: 'category_id') required int categoryId,
+
     required String name,
     required String brand,
-    required String category,
     required String subcategory,
     required double price,
-    required double originalPrice,
+
+    @JsonKey(name: 'original_price') required double originalPrice,
     required double rating,
-    required int reviewCount,
+    @JsonKey(name: 'review_count') required int reviewCount,
     required String description,
     required List<String> images,
     required int stock,

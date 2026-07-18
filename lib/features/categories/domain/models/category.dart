@@ -8,6 +8,7 @@ abstract class Category with _$Category {
   const factory Category({
     required int id,
     required String name,
+    @JsonKey(name: 'image_url')
     required String imageUrl,
   }) = _Category;
 

@@ -7,12 +7,12 @@ import 'package:refily/features/product/data/models/product.dart';
 import 'package:refily/features/product/presentation/providers/product_detail_provider.dart';
 
 class RelatedProductsList extends ConsumerWidget {
-  final String category;
+  final int categoryId;
   final int currentProductId;
 
   const RelatedProductsList({
     super.key,
-    required this.category,
+    required this.categoryId,
     required this.currentProductId,
   });
 
@@ -21,7 +21,7 @@ class RelatedProductsList extends ConsumerWidget {
     // Smart fallback recommendation provider
     final relatedProductsAsync = ref.watch(
       relatedProductsProvider(
-        category: category,
+        categoryId: categoryId,
         currentProductId: currentProductId,
       ),
     );
@@ -59,7 +59,6 @@ class RelatedProductsList extends ConsumerWidget {
                       margin: const EdgeInsets.only(right: 12.0),
                       decoration: BoxDecoration(
                         color: context.theme.cardTheme.color,
-                       
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,11 +69,14 @@ class RelatedProductsList extends ConsumerWidget {
                               topLeft: Radius.circular(12),
                               topRight: Radius.circular(12),
                             ),
-                            child: Image.asset(
+                            child: Image.network(
                               product.images.first,
-                              height: 120,
-                              width: double.infinity,
-                              fit: BoxFit.contain,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const Icon(
+                                    Icons.broken_image_outlined,
+                                    size: 40,
+                                  ),
                             ),
                           ),
                           // 2. Info Content

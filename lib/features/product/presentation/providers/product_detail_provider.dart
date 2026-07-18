@@ -1,30 +1,41 @@
-import 'package:refily/features/home/controllers/fetch_product_provider.dart';
 import 'package:refily/features/product/data/models/product.dart';
+import 'package:refily/features/product/providers/product_datasource_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'product_detail_provider.g.dart';
 
 @riverpod
 Future<Product> productDetail(Ref ref, int productId) async {
-  final allProduct = await ref.watch(fetchProductProvider.future);
-  return allProduct.firstWhere((product) => product.id == productId);
+  final datasource = ref.watch(productSupabaseDatasourceProvider);
+  final rawList = await datasource.getAllProducts();
+
+  final allProducts = rawList.map((json) => Product.fromJson(json)).toList();
+
+  return allProducts.firstWhere(
+    (product) => product.id == productId,
+    orElse: () => throw Exception(
+      'Target product item not found inside global storage collections',
+    ),
+  );
 }
 
 @riverpod
 Future<List<Product>> relatedProducts(
   Ref ref, {
-  required String category,
+  required int categoryId,
   required int currentProductId,
 }) async {
-  final allProducts = await ref.watch(fetchProductProvider.future);
+  final datasource = ref.watch(productSupabaseDatasourceProvider);
+  final rawList = await datasource.getAllProducts();
+  final allProducts = rawList.map((json) => Product.fromJson(json)).toList();
 
   List<Product> matches = allProducts
-      .where((p) => p.category == category && p.id != currentProductId)
+      .where((p) => p.categoryId == categoryId && p.id != currentProductId)
       .toList();
 
   if (matches.length < 3) {
     final fallbacks = allProducts
-        .where((p) => p.category != category && p.id != currentProductId)
+        .where((p) => p.categoryId != categoryId && p.id != currentProductId)
         .toList();
     matches.addAll(fallbacks);
   }

@@ -25,7 +25,7 @@ class ProductDetailScreen extends ConsumerWidget {
               CustomScrollView(
                 slivers: [
                   // Image Carousel + Back + Fav Actions
-                  ProductHeroSection(product: product),
+                  ProductHeroSection(productId: product.id),
 
                   // Main content container
                   SliverToBoxAdapter(
@@ -53,12 +53,12 @@ class ProductDetailScreen extends ConsumerWidget {
 
                           // Related Products (With fallback recommendation)
                           RelatedProductsList(
-                            category: product.category,
+                            categoryId: product.categoryId,
                             currentProductId: product.id,
                           ),
 
-                          // Reviews Section
-                          //  ReviewsSection(product: product),
+                          //   Reviews Section
+                          // ReviewsSection(product: product),
                           const SizedBox(height: 80),
                         ],
                       ),
@@ -83,3 +83,4 @@ class ProductDetailScreen extends ConsumerWidget {
     );
   }
 }
+

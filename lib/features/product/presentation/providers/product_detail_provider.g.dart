@@ -58,7 +58,7 @@ final class ProductDetailProvider
   }
 }
 
-String _$productDetailHash() => r'32b9c1be9cb6d4d2374260e3e64873a3dab84223';
+String _$productDetailHash() => r'f6dc847a54b9d51c24d6ff14a429e92c222f7647';
 
 final class ProductDetailFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<Product>, int> {
@@ -91,7 +91,7 @@ final class RelatedProductsProvider
     with $FutureModifier<List<Product>>, $FutureProvider<List<Product>> {
   RelatedProductsProvider._({
     required RelatedProductsFamily super.from,
-    required ({String category, int currentProductId}) super.argument,
+    required ({int categoryId, int currentProductId}) super.argument,
   }) : super(
          retry: null,
          name: r'relatedProductsProvider',
@@ -118,10 +118,10 @@ final class RelatedProductsProvider
 
   @override
   FutureOr<List<Product>> create(Ref ref) {
-    final argument = this.argument as ({String category, int currentProductId});
+    final argument = this.argument as ({int categoryId, int currentProductId});
     return relatedProducts(
       ref,
-      category: argument.category,
+      categoryId: argument.categoryId,
       currentProductId: argument.currentProductId,
     );
   }
@@ -137,13 +137,13 @@ final class RelatedProductsProvider
   }
 }
 
-String _$relatedProductsHash() => r'd6d7e28ad600d8e74b426c2cc9be31cf8849bbd3';
+String _$relatedProductsHash() => r'b28344060c492b16221c3945af9b3629a65f7ac8';
 
 final class RelatedProductsFamily extends $Family
     with
         $FunctionalFamilyOverride<
           FutureOr<List<Product>>,
-          ({String category, int currentProductId})
+          ({int categoryId, int currentProductId})
         > {
   RelatedProductsFamily._()
     : super(
@@ -155,10 +155,10 @@ final class RelatedProductsFamily extends $Family
       );
 
   RelatedProductsProvider call({
-    required String category,
+    required int categoryId,
     required int currentProductId,
   }) => RelatedProductsProvider._(
-    argument: (category: category, currentProductId: currentProductId),
+    argument: (categoryId: categoryId, currentProductId: currentProductId),
     from: this,
   );
 
