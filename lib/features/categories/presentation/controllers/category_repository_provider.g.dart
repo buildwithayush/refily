@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'category_repository_impl_provider.dart';
+part of 'category_repository_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -55,4 +55,4 @@ final class CategoryRepositoryProvider
 }
 
 String _$categoryRepositoryHash() =>
-    r'c0c49ae5adf2a0f5b037db30a396f014660f9755';
+    r'c8cad14c909349c58295600c010dbac8d9b03e0c';

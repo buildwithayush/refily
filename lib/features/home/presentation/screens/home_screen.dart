@@ -269,9 +269,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                       .colorScheme
                                       .surfaceContainerHighest
                                       .withValues(alpha: 0.3),
-                                  child: Image.asset(
-                                    product.images[0],
-                                    fit: BoxFit.contain,
+                                  child: Image.network(
+                                    product.images.first,
+                                    fit: BoxFit.cover,
+                                    errorBuilder:
+                                        (context, error, stackTrace) =>
+                                            const Icon(
+                                              Icons.broken_image_outlined,
+                                              size: 40,
+                                            ),
                                   ),
                                 ),
                               ),

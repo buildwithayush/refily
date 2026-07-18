@@ -47,4 +47,4 @@ final class CategoryControllerProvider
 }
 
 String _$categoryControllerHash() =>
-    r'00c95a389765e4a9a44ac2da4a8661a2c283e7d6';
+    r'520fc650c83586f0f8ba6cb4e1842e8750794ae2';

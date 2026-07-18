@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'category_product_controller.dart';
+part of 'category_products_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -8,9 +8,12 @@ part of 'category_product_controller.dart';
 
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
+/// FETCH PRODUCTS BY TARGET CATEGORY ID
 
 @ProviderFor(fetchCategoryProduct)
 final fetchCategoryProductProvider = FetchCategoryProductFamily._();
+
+/// FETCH PRODUCTS BY TARGET CATEGORY ID
 
 final class FetchCategoryProductProvider
     extends
@@ -20,6 +23,7 @@ final class FetchCategoryProductProvider
           FutureOr<List<Product>>
         >
     with $FutureModifier<List<Product>>, $FutureProvider<List<Product>> {
+  /// FETCH PRODUCTS BY TARGET CATEGORY ID
   FetchCategoryProductProvider._({
     required FetchCategoryProductFamily super.from,
     required int super.argument,
@@ -65,7 +69,9 @@ final class FetchCategoryProductProvider
 }
 
 String _$fetchCategoryProductHash() =>
-    r'6e66d12f3cd03880f5af32baaaeaa033597b7e33';
+    r'9ae75b84c2f80515ac576f7f1fabb9223281cf37';
+
+/// FETCH PRODUCTS BY TARGET CATEGORY ID
 
 final class FetchCategoryProductFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<Product>>, int> {
@@ -77,6 +83,8 @@ final class FetchCategoryProductFamily extends $Family
         $allTransitiveDependencies: null,
         isAutoDispose: true,
       );
+
+  /// FETCH PRODUCTS BY TARGET CATEGORY ID
 
   FetchCategoryProductProvider call(int categoryId) =>
       FetchCategoryProductProvider._(argument: categoryId, from: this);

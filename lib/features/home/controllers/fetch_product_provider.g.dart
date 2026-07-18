@@ -46,7 +46,7 @@ final class FetchProductProvider
   }
 }
 
-String _$fetchProductHash() => r'da417941ed051950b8119ff2f395cced8fd29778';
+String _$fetchProductHash() => r'523db7f3193c2b45eb839bf3b25d03304ddfbb41';
 
 @ProviderFor(productCategories)
 final productCategoriesProvider = ProductCategoriesProvider._();
@@ -85,7 +85,7 @@ final class ProductCategoriesProvider
   }
 }
 
-String _$productCategoriesHash() => r'1aae5343f1f753e007abddd12bfb47e0ad42a4fa';
+String _$productCategoriesHash() => r'3ce784d219030bfcd75dd2062c12d8c1681f6acb';
 
 @ProviderFor(SearchQuery)
 final searchQueryProvider = SearchQueryProvider._();
@@ -227,4 +227,4 @@ final class FilteredCategoryProvider
   }
 }
 
-String _$filteredCategoryHash() => r'f37e8b079dc0f4449cfc8ffab4209d4be638066f';
+String _$filteredCategoryHash() => r'de78f053920c3002aa3f1abd47a1b91f4dae438f';
