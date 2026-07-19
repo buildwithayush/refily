@@ -121,9 +121,14 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               padding: const EdgeInsets.all(8),
-                              child: Image.asset(
-                                cartItem.product.images[0],
-                                fit: BoxFit.contain,
+                              child: Image.network(
+                                cartItem.product.images.first,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    const Icon(
+                                      Icons.broken_image_outlined,
+                                      size: 40,
+                                    ),
                               ),
                             ),
                             const SizedBox(width: 14),
