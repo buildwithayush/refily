@@ -33,9 +33,11 @@ class WishlistItem extends ConsumerWidget {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: Image.asset(
-                        product.images[0],
-                        fit: BoxFit.contain,
+                      child: Image.network(
+                        product.images.first,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.broken_image_outlined, size: 40),
                       ),
                     ),
                   ),
@@ -85,7 +87,6 @@ class WishlistItem extends ConsumerWidget {
                       size: 20,
                     ),
                     onPressed: () {
-                      
                       ref
                           .read(wishlistControllerProvider.notifier)
                           .removeItem(product.id);

@@ -23,7 +23,12 @@ class CategoryCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
-                child: Image.asset(category.imageUrl, fit: BoxFit.contain),
+                child: Image.network(
+                  category.imageUrl,
+                  fit: BoxFit.contain,
+                  errorBuilder: (context, error, stackTrace) =>
+                      const Icon(Icons.broken_image_outlined, size: 40),
+                ),
               ),
               const SizedBox(height: 14),
               Text(
