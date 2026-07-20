@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:refily/features/home/banner/domain/model/banner_model.dart';
 
-
 class HomeBannerSlider extends StatefulWidget {
   final List<BannerModel> banners;
   final Function(int categoryId) onBannerTap;
@@ -55,7 +54,7 @@ class _HomeBannerSliderState extends State<HomeBannerSlider> {
   Widget build(BuildContext context) {
     if (widget.banners.isEmpty) return const SizedBox.shrink();
 
-    // Active status filter aur sorting execution 
+    // Active status filter aur sorting execution
     final activeBanners = widget.banners.where((b) => b.isActive).toList()
       ..sort((a, b) => a.displayOrder.compareTo(b.displayOrder));
 
@@ -71,17 +70,25 @@ class _HomeBannerSliderState extends State<HomeBannerSlider> {
               final banner = activeBanners[index];
 
               return GestureDetector(
-        
                 onTap: () => widget.onBannerTap(banner.redirectId),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(16),
                     child: Image.asset(
                       banner.imageUrl,
+                      fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) => Container(
-                        color: Theme.of(context).colorScheme.surfaceContainerHighest,
-                        child: const Icon(Icons.broken_image_outlined, size: 40),
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.surfaceContainerHighest,
+                        child: const Icon(
+                          Icons.broken_image_outlined,
+                          size: 40,
+                        ),
                       ),
                     ),
                   ),
@@ -90,7 +97,7 @@ class _HomeBannerSliderState extends State<HomeBannerSlider> {
             },
           ),
         ),
-        
+
         // Navigation Indicator Dots
         if (activeBanners.length > 1)
           Row(
