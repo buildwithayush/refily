@@ -1,50 +1,54 @@
-final List<Map<String, dynamic>> mockBannerList = [
-  {
-    "id": 1,
-    "image": "assets/home/accessories_banner.png",
-    "redirect_type": "category",
-    "redirect_id": 1,
-    "is_active": true,
-    "display_order": 1
-  },
-  {
-    "id": 2,
-    "image": "assets/home/books_banner.png",
-    "redirect_type": "category",
-    "redirect_id": 2,
-    "is_active": true,
-    "display_order": 2
-  },
-  {
-    "id": 3,
-    "image": "assets/home/electronics_banner.png",
-    "redirect_type": "category",
-    "redirect_id": 3,
-    "is_active": true,
-    "display_order": 3
-  },
-  {
-    "id": 4,
-    "image": "assets/home/groceries_banner.png",
-    "redirect_type": "category",
-    "redirect_id": 4,
-    "is_active": true,
-    "display_order": 4
-  },
-  {
-    "id": 5,
-    "image": "assets/home/sports_banner.png",
-    "redirect_type": "category",
-    "redirect_id": 5,
-    "is_active": true,
-    "display_order": 5
-  },
-  {
-    "id": 6,
-    "image": "assets/home/home_and_kitchen_banner.png",
-    "redirect_type": "category",
-    "redirect_id": 6,
-    "is_active": true,
-    "display_order": 6
-  }
+import 'package:refily/features/home/banner/domain/enum/banner_redirect_type.dart';
+import 'package:refily/features/home/banner/domain/model/banner_model.dart';
+
+final List<BannerModel> mockBannerList = [
+  const BannerModel(
+    id: 1,
+    imageUrl: "assets/home/accessories_banner.png",
+    redirectType: BannerRedirectType.category,
+    redirectId: 9,
+    isActive: true,
+    displayOrder: 1,
+  ),
+  const BannerModel(
+    id: 2,
+    imageUrl: "assets/home/books_banner.png",
+    redirectType: BannerRedirectType.category,
+    redirectId: 7,
+    isActive: true,
+    displayOrder: 2,
+  ),
+  const BannerModel(
+    id: 3,
+    imageUrl: "assets/home/electronics_banner.png",
+    redirectType: BannerRedirectType.category,
+    redirectId: 1,
+    isActive: true,
+    displayOrder: 3,
+  ),
+  const BannerModel(
+    id: 4,
+
+    imageUrl: "assets/home/groceries_banner.png",
+    redirectType: BannerRedirectType.category,
+    redirectId: 8,
+    isActive: true,
+    displayOrder: 4,
+  ),
+  const BannerModel(
+    id: 5,
+    imageUrl: "assets/home/sports_banner.png",
+    redirectType: BannerRedirectType.category,
+    redirectId: 6,
+    isActive: true,
+    displayOrder: 5,
+  ),
+  const BannerModel(
+    id: 6,
+    imageUrl: "assets/home/home_and_kitchen_banner.png",
+    redirectType: BannerRedirectType.category,
+    redirectId: 5,
+    isActive: true,
+    displayOrder: 6,
+  ),
 ];

@@ -10,7 +10,7 @@ _BannerModel _$BannerModelFromJson(Map<String, dynamic> json) => _BannerModel(
   id: (json['id'] as num).toInt(),
   imageUrl: json['image_url'] as String,
   redirectType: $enumDecode(_$BannerRedirectTypeEnumMap, json['redirect_type']),
-  redirectId: (json['redirect_id'] as num?)?.toInt(),
+  redirectId: (json['redirect_id'] as num).toInt(),
   isActive: json['is_active'] as bool,
   displayOrder: (json['display_order'] as num).toInt(),
 );

@@ -40,7 +40,6 @@ class CategoriesScreen extends ConsumerWidget {
                     AppRoutes.categoryProduct,
                     extra: {
                       'categoryId': category.id,
-                      'categoryName': category.name,
                     },
                   );
                 },

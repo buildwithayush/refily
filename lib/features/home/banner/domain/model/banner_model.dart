@@ -13,7 +13,7 @@ abstract class BannerModel with _$BannerModel {
 
     @JsonKey(name: 'redirect_type') required BannerRedirectType redirectType,
 
-    @JsonKey(name: 'redirect_id') int? redirectId,
+    @JsonKey(name: 'redirect_id') required int redirectId,
 
     @JsonKey(name: 'is_active') required bool isActive,
 

@@ -5,7 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:refily/core/router/app_routes.dart';
 import 'package:refily/core/theme/theme_extension.dart';
 import 'package:refily/features/cart/presentation/controller/cart_controller.dart';
-import 'package:refily/features/home/controllers/banner_images_provider.dart';
+import 'package:refily/features/home/banner/providers/banner_images_provider.dart';
+import 'package:refily/features/home/banner/widgets/home_banner_slider.dart';
 import 'package:refily/features/home/controllers/fetch_product_provider.dart';
 import 'package:refily/features/home/presentation/widgets/banner_shimmer.dart';
 import 'package:refily/features/home/presentation/widgets/chips_shimmer.dart';
@@ -23,7 +24,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   String selectedCategory = "All";
 
   final PageController _pageController = PageController();
-  int _currentBannerIndex = 0;
 
   @override
   void dispose() {
@@ -37,7 +37,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final filteredProductAsync = ref.watch(filteredCategoryProvider);
     final categoriesAsync = ref.watch(productCategoriesProvider);
     final currentCategory = ref.watch(selectedCategoryProvider);
-    final bannerImages = ref.watch(bannerProvider);
+    final bannersAsync = ref.watch(bannerProvider);
 
     return Scaffold(
       appBar: const RefilyAppBar(appBarName: 'Refily'),
@@ -119,71 +119,30 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 loading: () => const ChipsShimmer(),
               ),
             ),
-
-            bannerImages.when(
-              data: (fetchedBanners) {
-                if (fetchedBanners.isEmpty) return const SizedBox.shrink();
-
-                return Column(
-                  children: [
-                    Container(
-                      height: 160,
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 16.0,
-                        vertical: 8.0,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(16),
-                        child: PageView.builder(
-                          controller: _pageController,
-                          itemCount: fetchedBanners.length,
-                          onPageChanged: (index) {
-                            setState(() {
-                              _currentBannerIndex = index;
-                            });
-                          },
-                          itemBuilder: (context, index) {
-                            return Image.asset(
-                              fetchedBanners[index],
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                    // Smooth Dot Indicator
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: List.generate(fetchedBanners.length, (index) {
-                        final isCurrent = _currentBannerIndex == index;
-                        return AnimatedContainer(
-                          duration: const Duration(milliseconds: 300),
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 4.0,
-                            vertical: 4.0,
-                          ),
-                          height: 6,
-                          width: isCurrent ? 18 : 6,
-                          decoration: BoxDecoration(
-                            color: isCurrent
-                                ? Colors.blueGrey[800]
-                                : Colors.grey[400],
-                            borderRadius: BorderRadius.circular(3),
-                          ),
+            RefreshIndicator(
+              onRefresh: () => ref.refresh(bannerProvider.future),
+              child: ListView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                shrinkWrap: true,
+                children: [
+                  const SizedBox(height: 8),
+                  bannersAsync.when(
+                    data: (bannersList) => HomeBannerSlider(
+                      banners: bannersList,
+                      onBannerTap: (targetId) {
+                        context.push(
+                          AppRoutes.categoryProduct,
+                          extra: targetId,
                         );
-                      }),
+                      },
                     ),
-                  ],
-                );
-              },
-
-              loading: () => const BannerShimmer(),
-              error: (error, stackTrace) => const SizedBox.shrink(),
+                    loading: () => const BannerShimmer(),
+                    error: (error, stackTrace) => const SizedBox.shrink(),
+                  ),
+                ],
+              ),
             ),
+
             Padding(
               padding: const EdgeInsets.only(
                 left: 20.0,

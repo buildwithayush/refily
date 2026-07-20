@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$BannerModel {
 
- int get id;@JsonKey(name: 'image_url') String get imageUrl;@JsonKey(name: 'redirect_type') BannerRedirectType get redirectType;@JsonKey(name: 'redirect_id') int? get redirectId;@JsonKey(name: 'is_active') bool get isActive;@JsonKey(name: 'display_order') int get displayOrder;
+ int get id;@JsonKey(name: 'image_url') String get imageUrl;@JsonKey(name: 'redirect_type') BannerRedirectType get redirectType;@JsonKey(name: 'redirect_id') int get redirectId;@JsonKey(name: 'is_active') bool get isActive;@JsonKey(name: 'display_order') int get displayOrder;
 /// Create a copy of BannerModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $BannerModelCopyWith<$Res>  {
   factory $BannerModelCopyWith(BannerModel value, $Res Function(BannerModel) _then) = _$BannerModelCopyWithImpl;
 @useResult
 $Res call({
- int id,@JsonKey(name: 'image_url') String imageUrl,@JsonKey(name: 'redirect_type') BannerRedirectType redirectType,@JsonKey(name: 'redirect_id') int? redirectId,@JsonKey(name: 'is_active') bool isActive,@JsonKey(name: 'display_order') int displayOrder
+ int id,@JsonKey(name: 'image_url') String imageUrl,@JsonKey(name: 'redirect_type') BannerRedirectType redirectType,@JsonKey(name: 'redirect_id') int redirectId,@JsonKey(name: 'is_active') bool isActive,@JsonKey(name: 'display_order') int displayOrder
 });
 
 
@@ -65,13 +65,13 @@ class _$BannerModelCopyWithImpl<$Res>
 
 /// Create a copy of BannerModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? imageUrl = null,Object? redirectType = null,Object? redirectId = freezed,Object? isActive = null,Object? displayOrder = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? imageUrl = null,Object? redirectType = null,Object? redirectId = null,Object? isActive = null,Object? displayOrder = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,imageUrl: null == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
 as String,redirectType: null == redirectType ? _self.redirectType : redirectType // ignore: cast_nullable_to_non_nullable
-as BannerRedirectType,redirectId: freezed == redirectId ? _self.redirectId : redirectId // ignore: cast_nullable_to_non_nullable
-as int?,isActive: null == isActive ? _self.isActive : isActive // ignore: cast_nullable_to_non_nullable
+as BannerRedirectType,redirectId: null == redirectId ? _self.redirectId : redirectId // ignore: cast_nullable_to_non_nullable
+as int,isActive: null == isActive ? _self.isActive : isActive // ignore: cast_nullable_to_non_nullable
 as bool,displayOrder: null == displayOrder ? _self.displayOrder : displayOrder // ignore: cast_nullable_to_non_nullable
 as int,
   ));
@@ -158,7 +158,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'image_url')  String imageUrl, @JsonKey(name: 'redirect_type')  BannerRedirectType redirectType, @JsonKey(name: 'redirect_id')  int? redirectId, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'display_order')  int displayOrder)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'image_url')  String imageUrl, @JsonKey(name: 'redirect_type')  BannerRedirectType redirectType, @JsonKey(name: 'redirect_id')  int redirectId, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'display_order')  int displayOrder)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _BannerModel() when $default != null:
 return $default(_that.id,_that.imageUrl,_that.redirectType,_that.redirectId,_that.isActive,_that.displayOrder);case _:
@@ -179,7 +179,7 @@ return $default(_that.id,_that.imageUrl,_that.redirectType,_that.redirectId,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'image_url')  String imageUrl, @JsonKey(name: 'redirect_type')  BannerRedirectType redirectType, @JsonKey(name: 'redirect_id')  int? redirectId, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'display_order')  int displayOrder)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id, @JsonKey(name: 'image_url')  String imageUrl, @JsonKey(name: 'redirect_type')  BannerRedirectType redirectType, @JsonKey(name: 'redirect_id')  int redirectId, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'display_order')  int displayOrder)  $default,) {final _that = this;
 switch (_that) {
 case _BannerModel():
 return $default(_that.id,_that.imageUrl,_that.redirectType,_that.redirectId,_that.isActive,_that.displayOrder);case _:
@@ -199,7 +199,7 @@ return $default(_that.id,_that.imageUrl,_that.redirectType,_that.redirectId,_tha
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id, @JsonKey(name: 'image_url')  String imageUrl, @JsonKey(name: 'redirect_type')  BannerRedirectType redirectType, @JsonKey(name: 'redirect_id')  int? redirectId, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'display_order')  int displayOrder)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id, @JsonKey(name: 'image_url')  String imageUrl, @JsonKey(name: 'redirect_type')  BannerRedirectType redirectType, @JsonKey(name: 'redirect_id')  int redirectId, @JsonKey(name: 'is_active')  bool isActive, @JsonKey(name: 'display_order')  int displayOrder)?  $default,) {final _that = this;
 switch (_that) {
 case _BannerModel() when $default != null:
 return $default(_that.id,_that.imageUrl,_that.redirectType,_that.redirectId,_that.isActive,_that.displayOrder);case _:
@@ -214,13 +214,13 @@ return $default(_that.id,_that.imageUrl,_that.redirectType,_that.redirectId,_tha
 @JsonSerializable()
 
 class _BannerModel implements BannerModel {
-  const _BannerModel({required this.id, @JsonKey(name: 'image_url') required this.imageUrl, @JsonKey(name: 'redirect_type') required this.redirectType, @JsonKey(name: 'redirect_id') this.redirectId, @JsonKey(name: 'is_active') required this.isActive, @JsonKey(name: 'display_order') required this.displayOrder});
+  const _BannerModel({required this.id, @JsonKey(name: 'image_url') required this.imageUrl, @JsonKey(name: 'redirect_type') required this.redirectType, @JsonKey(name: 'redirect_id') required this.redirectId, @JsonKey(name: 'is_active') required this.isActive, @JsonKey(name: 'display_order') required this.displayOrder});
   factory _BannerModel.fromJson(Map<String, dynamic> json) => _$BannerModelFromJson(json);
 
 @override final  int id;
 @override@JsonKey(name: 'image_url') final  String imageUrl;
 @override@JsonKey(name: 'redirect_type') final  BannerRedirectType redirectType;
-@override@JsonKey(name: 'redirect_id') final  int? redirectId;
+@override@JsonKey(name: 'redirect_id') final  int redirectId;
 @override@JsonKey(name: 'is_active') final  bool isActive;
 @override@JsonKey(name: 'display_order') final  int displayOrder;
 
@@ -257,7 +257,7 @@ abstract mixin class _$BannerModelCopyWith<$Res> implements $BannerModelCopyWith
   factory _$BannerModelCopyWith(_BannerModel value, $Res Function(_BannerModel) _then) = __$BannerModelCopyWithImpl;
 @override @useResult
 $Res call({
- int id,@JsonKey(name: 'image_url') String imageUrl,@JsonKey(name: 'redirect_type') BannerRedirectType redirectType,@JsonKey(name: 'redirect_id') int? redirectId,@JsonKey(name: 'is_active') bool isActive,@JsonKey(name: 'display_order') int displayOrder
+ int id,@JsonKey(name: 'image_url') String imageUrl,@JsonKey(name: 'redirect_type') BannerRedirectType redirectType,@JsonKey(name: 'redirect_id') int redirectId,@JsonKey(name: 'is_active') bool isActive,@JsonKey(name: 'display_order') int displayOrder
 });
 
 
@@ -274,13 +274,13 @@ class __$BannerModelCopyWithImpl<$Res>
 
 /// Create a copy of BannerModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? imageUrl = null,Object? redirectType = null,Object? redirectId = freezed,Object? isActive = null,Object? displayOrder = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? imageUrl = null,Object? redirectType = null,Object? redirectId = null,Object? isActive = null,Object? displayOrder = null,}) {
   return _then(_BannerModel(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,imageUrl: null == imageUrl ? _self.imageUrl : imageUrl // ignore: cast_nullable_to_non_nullable
 as String,redirectType: null == redirectType ? _self.redirectType : redirectType // ignore: cast_nullable_to_non_nullable
-as BannerRedirectType,redirectId: freezed == redirectId ? _self.redirectId : redirectId // ignore: cast_nullable_to_non_nullable
-as int?,isActive: null == isActive ? _self.isActive : isActive // ignore: cast_nullable_to_non_nullable
+as BannerRedirectType,redirectId: null == redirectId ? _self.redirectId : redirectId // ignore: cast_nullable_to_non_nullable
+as int,isActive: null == isActive ? _self.isActive : isActive // ignore: cast_nullable_to_non_nullable
 as bool,displayOrder: null == displayOrder ? _self.displayOrder : displayOrder // ignore: cast_nullable_to_non_nullable
 as int,
   ));

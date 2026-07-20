@@ -3,25 +3,30 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:refily/core/router/app_routes.dart';
 import 'package:refily/core/theme/theme_extension.dart';
+import 'package:refily/features/categories/domain/extension/catgeory_extension.dart';
+import 'package:refily/features/categories/presentation/controllers/category_controller.dart';
 import 'package:refily/features/categories/presentation/widgets/product_grid_skeleton.dart';
 import 'package:refily/features/home/controllers/category_products_provider.dart';
 
 class CategoryProductsScreen extends ConsumerWidget {
   final int categoryId;
-  final String categoryName;
 
-  const CategoryProductsScreen({
-    super.key,
-    required this.categoryId,
-    required this.categoryName,
-  });
+  const CategoryProductsScreen({super.key, required this.categoryId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final productsAsync = ref.watch(fetchCategoryProductProvider(categoryId));
-
+    final categoriesAsync = ref.watch(categoryControllerProvider);
+    final String categoryTitle = categoriesAsync.when(
+      data: (categoriesList) => categoriesList.findCategoryName(
+        targetId: categoryId,
+        fallbackProducts: productsAsync.value,
+      ),
+      loading: () => 'Loading...',
+      error: (_, _) => 'Products',
+    );
     return Scaffold(
-      appBar: AppBar(title: Text(categoryName)),
+      appBar: AppBar(title: Text(categoryTitle)),
       body: productsAsync.when(
         data: (displayList) {
           if (displayList.isEmpty) {
