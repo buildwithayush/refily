@@ -15,11 +15,13 @@ final bannerProvider = BannerProvider._();
 final class BannerProvider
     extends
         $FunctionalProvider<
-          AsyncValue<List<String>>,
-          List<String>,
-          FutureOr<List<String>>
+          AsyncValue<List<BannerModel>>,
+          List<BannerModel>,
+          FutureOr<List<BannerModel>>
         >
-    with $FutureModifier<List<String>>, $FutureProvider<List<String>> {
+    with
+        $FutureModifier<List<BannerModel>>,
+        $FutureProvider<List<BannerModel>> {
   BannerProvider._()
     : super(
         from: null,
@@ -36,14 +38,14 @@ final class BannerProvider
 
   @$internal
   @override
-  $FutureProviderElement<List<String>> $createElement(
+  $FutureProviderElement<List<BannerModel>> $createElement(
     $ProviderPointer pointer,
   ) => $FutureProviderElement(pointer);
 
   @override
-  FutureOr<List<String>> create(Ref ref) {
+  FutureOr<List<BannerModel>> create(Ref ref) {
     return banner(ref);
   }
 }
 
-String _$bannerHash() => r'058fef31bc0749c0fb8528b8a474df3989ca52da';
+String _$bannerHash() => r'132d86fb8d61b740bd9b90e4619a761bacd68e55';

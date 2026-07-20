@@ -27,12 +27,9 @@ class AppRouter {
           GoRoute(
             path: AppRoutes.categoryProduct,
             builder: (context, state) {
-              final data = state.extra as Map<String, dynamic>;
+              final categoryId = state.extra as int;
 
-              return CategoryProductsScreen(
-                categoryId: data['categoryId'] as int,
-                categoryName: data['categoryName'] as String,
-              );
+              return CategoryProductsScreen(categoryId: categoryId);
             },
           ),
           GoRoute(
