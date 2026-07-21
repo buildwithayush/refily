@@ -36,12 +36,7 @@ class CategoriesScreen extends ConsumerWidget {
               return InkWell(
                 borderRadius: BorderRadius.circular(12),
                 onTap: () {
-                  context.push(
-                    AppRoutes.categoryProduct,
-                    extra: {
-                      'categoryId': category.id,
-                    },
-                  );
+                  context.push(AppRoutes.categoryProduct, extra: category.id);
                 },
                 child: CategoryCard(category: category),
               );
