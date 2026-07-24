@@ -424,6 +424,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  isar_plus:
+    dependency: "direct main"
+    description:
+      name: isar_plus
+      sha256: "53ad7c35e835306916fea2c7a2df852018c303a0a9e64e9c21256e32afcc6586"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.7"
+  isar_plus_flutter_libs:
+    dependency: "direct main"
+    description:
+      name: isar_plus_flutter_libs
+      sha256: b461fa1a3e78f28a62fef3f962b8567f918ed7c7b94ee6c549471aec9f2cabc4
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.7"
   jni:
     dependency: transitive
     description:
@@ -496,6 +512,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.0"
+  logger:
+    dependency: transitive
+    description:
+      name: logger
+      sha256: "25aee487596a6257655a1e091ec2ae66bc30e7af663592cc3a27e6591e05035c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.7.0"
   logging:
     dependency: transitive
     description:
@@ -585,7 +609,7 @@ packages:
     source: hosted
     version: "1.9.1"
   path_provider:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path_provider
       sha256: a7f4874f987173da295a61c181b8ee71dab59b332a486b391babf26a1b884825
