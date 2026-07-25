@@ -22,4 +22,27 @@ class ProductSupabaseDatasource {
     final response = await _client.from('products').select();
     return List<Map<String, dynamic>>.from(response);
   }
+
+  // Single Product Fetching
+  Future<Map<String, dynamic>?> getProductById(int id) async {
+    final response = await _client
+        .from('products')
+        .select()
+        .eq('id', id)
+        .maybeSingle();
+
+    return response;
+  }
+
+  // Direct Supabase In-Filter Query
+  Future<List<Map<String, dynamic>>> getProductsByIds(List<int> ids) async {
+    if (ids.isEmpty) return [];
+
+    final response = await _client
+        .from('products')
+        .select()
+        .inFilter('id', ids); // Supabase IN filter
+
+    return List<Map<String, dynamic>>.from(response);
+  }
 }

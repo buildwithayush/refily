@@ -6,7 +6,6 @@ import 'package:refily/features/product/presentation/providers/product_detail_pr
 import 'package:refily/features/wishlist/presentation/controllers/wishlist_controller.dart';
 
 class ProductHeroSection extends ConsumerStatefulWidget {
-  
   final int productId;
   const ProductHeroSection({super.key, required this.productId});
 
@@ -19,7 +18,6 @@ class _ProductHeroSectionState extends ConsumerState<ProductHeroSection> {
 
   @override
   Widget build(BuildContext context) {
-    
     final productAsync = ref.watch(productDetailProvider(widget.productId));
     final wishlistAsync = ref.watch(wishlistControllerProvider);
 
@@ -27,7 +25,7 @@ class _ProductHeroSectionState extends ConsumerState<ProductHeroSection> {
 
     return productAsync.when(
       data: (product) {
-        final isFavorite = wishlistSet.any((p) => p.id == product.id);
+        final isFavorite = wishlistSet.any((p) => p.productId == product.id);
 
         return SliverAppBar(
           leadingWidth: 60,
@@ -37,7 +35,8 @@ class _ProductHeroSectionState extends ConsumerState<ProductHeroSection> {
           leading: Padding(
             padding: const EdgeInsets.only(left: 15),
             child: CircleAvatar(
-              backgroundColor: context.colorScheme.surfaceContainerHighest.withValues(alpha: 0.8),
+              backgroundColor: context.colorScheme.surfaceContainerHighest
+                  .withValues(alpha: 0.8),
               foregroundColor: context.colorScheme.primary,
               child: IconButton(
                 icon: const Icon(Icons.arrow_back),
@@ -49,30 +48,34 @@ class _ProductHeroSectionState extends ConsumerState<ProductHeroSection> {
             Padding(
               padding: const EdgeInsets.only(right: 15),
               child: CircleAvatar(
-                backgroundColor: context.colorScheme.surfaceContainerHighest.withValues(alpha: 0.8),
+                backgroundColor: context.colorScheme.surfaceContainerHighest
+                    .withValues(alpha: 0.8),
                 child: IconButton(
                   icon: Icon(
-                    isFavorite ? Icons.favorite_rounded : Icons.favorite_border_rounded,
-                    color: isFavorite ? Colors.redAccent : context.colorScheme.primary,
+                    isFavorite
+                        ? Icons.favorite_rounded
+                        : Icons.favorite_border_rounded,
+                    color: isFavorite
+                        ? Colors.redAccent
+                        : context.colorScheme.primary,
                   ),
                   onPressed: () {
-                    final wishlistNotifier = ref.read(wishlistControllerProvider.notifier);
-                    if (isFavorite) {
-                      wishlistNotifier.removeItem(product.id);
-                    } else {
-                      wishlistNotifier.addItem(product); // Passing raw repository safe models
-                    }
+                    final wishlistNotifier = ref.read(
+                      wishlistControllerProvider.notifier,
+                    );
+                    wishlistNotifier.toggleWishList(widget.productId);
                   },
                 ),
               ),
             ),
             CircleAvatar(
-              backgroundColor: context.colorScheme.surfaceContainerHighest.withValues(alpha: 0.8),
+              backgroundColor: context.colorScheme.surfaceContainerHighest
+                  .withValues(alpha: 0.8),
               foregroundColor: context.colorScheme.primary,
               child: IconButton(
                 icon: const Icon(Icons.share),
                 onPressed: () {
-               // Share functionality link bindings
+                  // Share functionality link bindings
                 },
               ),
             ),
@@ -84,9 +87,9 @@ class _ProductHeroSectionState extends ConsumerState<ProductHeroSection> {
                 // Image Carousel Layer
                 PageView.builder(
                   itemCount: product.images.length,
-                  onPageChanged: (index) => setState(() => _currentImageIndex = index),
+                  onPageChanged: (index) =>
+                      setState(() => _currentImageIndex = index),
                   itemBuilder: (context, index) {
-                   
                     return Image.network(
                       product.images.first,
                       fit: BoxFit.cover,
@@ -132,7 +135,9 @@ class _ProductHeroSectionState extends ConsumerState<ProductHeroSection> {
       ),
       error: (error, stack) => SliverAppBar(
         expandedHeight: 340,
-        flexibleSpace: Center(child: Text('Failed to load item metadata: $error')),
+        flexibleSpace: Center(
+          child: Text('Failed to load item metadata: $error'),
+        ),
       ),
     );
   }
