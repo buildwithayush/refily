@@ -4,11 +4,15 @@ import 'package:refily/core/theme/theme_extension.dart';
 import 'package:refily/features/product/data/models/product.dart';
 import 'package:refily/features/wishlist/presentation/controllers/wishlist_controller.dart';
 
-class WishlistItem extends ConsumerWidget {
+class WishlistItemCard extends ConsumerWidget {
   final Product product;
   final VoidCallback onTap;
 
-  const WishlistItem({super.key, required this.product, required this.onTap});
+  const WishlistItemCard({
+    super.key,
+    required this.product,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -89,7 +93,7 @@ class WishlistItem extends ConsumerWidget {
                     onPressed: () {
                       ref
                           .read(wishlistControllerProvider.notifier)
-                          .removeItem(product.id);
+                          .toggleWishList(product.id);
                     },
                   ),
                 ),
