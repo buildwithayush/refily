@@ -1,11 +1,9 @@
-import 'package:refily/features/product/data/models/product.dart';
+import 'package:refily/features/wishlist/domain/entities/wishlist_item.dart';
 
 abstract class WishlistRepository {
-  Future<Set<Product>> getWishlist();
-
-  Future<void> addToWishlist(Product product);
-
+  Future<Set<WishlistItem>> getWishlist();
+  Future<void> addToWishlist(int productId);
   Future<void> removeFromWishlist(int productId);
-
   Future<bool> isWishlisted(int productId);
+  Future<void> clearWishlist();
 }
