@@ -17,9 +17,9 @@ final class CategoryControllerProvider
         $FunctionalProvider<
           AsyncValue<List<Category>>,
           List<Category>,
-          FutureOr<List<Category>>
+          Stream<List<Category>>
         >
-    with $FutureModifier<List<Category>>, $FutureProvider<List<Category>> {
+    with $FutureModifier<List<Category>>, $StreamProvider<List<Category>> {
   CategoryControllerProvider._()
     : super(
         from: null,
@@ -36,15 +36,15 @@ final class CategoryControllerProvider
 
   @$internal
   @override
-  $FutureProviderElement<List<Category>> $createElement(
+  $StreamProviderElement<List<Category>> $createElement(
     $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
+  ) => $StreamProviderElement(pointer);
 
   @override
-  FutureOr<List<Category>> create(Ref ref) {
+  Stream<List<Category>> create(Ref ref) {
     return categoryController(ref);
   }
 }
 
 String _$categoryControllerHash() =>
-    r'520fc650c83586f0f8ba6cb4e1842e8750794ae2';
+    r'168ef58f988a82c14698a47704418a6ad3cbaa9f';

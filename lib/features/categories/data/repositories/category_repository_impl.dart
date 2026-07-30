@@ -10,14 +10,10 @@ class CategoryRepositoryImpl implements CategoryRepository {
   CategoryRepositoryImpl(this._datasource, this._productRepository);
 
   @override
-  Future<List<Category>> fetchActiveCategories() async {
-    final products = await _productRepository.fetchAllProducts();
-
-    final List<int> targetIds = products
-        .map((p) => p.categoryId)
-        .toSet()
-        .toList();
-
-    return await _datasource.getCategoriesByIds(targetIds);
+  Stream<List<Category>> fetchActiveCategories() async* {
+    yield* _productRepository.watchAllProducts().asyncMap((products) async {
+      final targetIds = products.map((p) => p.categoryId).toSet().toList();
+      return await _datasource.getCategoriesByIds(targetIds);
+    });
   }
 }
