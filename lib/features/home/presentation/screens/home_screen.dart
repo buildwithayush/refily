@@ -34,11 +34,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final filteredProductAsync = ref.watch(filteredCategoryProvider);
+    final filteredProductAsync = ref.watch(filteredProductsProvider);
     final categoriesAsync = ref.watch(productCategoriesProvider);
     final currentCategory = ref.watch(selectedCategoryProvider);
     final bannersAsync = ref.watch(bannerProvider);
-
     return Scaffold(
       appBar: const RefilyAppBar(appBarName: 'Refily'),
       body: SingleChildScrollView(

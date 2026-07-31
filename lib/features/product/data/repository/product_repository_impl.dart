@@ -20,11 +20,12 @@ class ProductRepositoryImpl implements ProductRepository {
   @override
   Stream<List<Product>> watchAllProducts() {
     unawaited(syncProducts());
-    return _localDatasource.watchActiveProducts().map(
-      (models) => models.map((m) => m.toDomain()).toList(),
-    );
+
+    return _localDatasource.watchActiveProducts().map((models) {
+      return models.map((m) => m.toDomain()).toList();
+    });
   }
-  
+
   @override
   Future<void> syncProducts() async {
     final lastUpdatedAt = await _localDatasource.getLastUpdatedTimestamp();

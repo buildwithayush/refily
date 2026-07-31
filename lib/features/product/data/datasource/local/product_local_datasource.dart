@@ -10,6 +10,7 @@ class ProductLocalDatasource {
     return isar.productIsarModels
         .where()
         .isDeletedEqualTo(false)
+        .build()
         .watch(fireImmediately: true);
   }
 
