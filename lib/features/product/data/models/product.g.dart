@@ -21,6 +21,8 @@ _Product _$ProductFromJson(Map<String, dynamic> json) => _Product(
   stock: (json['stock'] as num).toInt(),
   specifications: Map<String, String>.from(json['specifications'] as Map),
   tags: (json['tags'] as List<dynamic>).map((e) => e as String).toList(),
+  updatedAt: DateTime.parse(json['updated_at'] as String),
+  isDeleted: json['is_deleted'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$ProductToJson(_Product instance) => <String, dynamic>{
@@ -38,4 +40,6 @@ Map<String, dynamic> _$ProductToJson(_Product instance) => <String, dynamic>{
   'stock': instance.stock,
   'specifications': instance.specifications,
   'tags': instance.tags,
+  'updated_at': instance.updatedAt.toIso8601String(),
+  'is_deleted': instance.isDeleted,
 };

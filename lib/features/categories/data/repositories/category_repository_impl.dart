@@ -11,13 +11,8 @@ class CategoryRepositoryImpl implements CategoryRepository {
 
   @override
   Future<List<Category>> fetchActiveCategories() async {
-    final products = await _productRepository.fetchAllProducts();
-
-    final List<int> targetIds = products
-        .map((p) => p.categoryId)
-        .toSet()
-        .toList();
-
+    final products = await _productRepository.watchAllProducts().first;
+    final targetIds = products.map((p) => p.categoryId).toSet().toList();
     return await _datasource.getCategoriesByIds(targetIds);
   }
 }
