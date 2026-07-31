@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'category_controller.g.dart';
 
 @riverpod
-Stream<List<Category>> categoryController(Ref ref) {
+Future<List<Category>> categoryController(Ref ref) {
   final repository = ref.watch(categoryRepositoryProvider);
   return repository.fetchActiveCategories();
 }
