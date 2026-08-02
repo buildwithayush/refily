@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:refily/core/router/app_routes.dart';
-import 'package:refily/features/categories/presentation/controllers/category_controller.dart';
 import 'package:refily/features/categories/presentation/widgets/categories_grid_skeleton.dart';
 import 'package:refily/features/categories/presentation/widgets/category_card.dart';
+import 'package:refily/features/categories/providers/categories_provider.dart';
 import 'package:refily/features/shared/widgets/refily_appbar.dart';
 
 class CategoriesScreen extends ConsumerWidget {
@@ -12,7 +12,7 @@ class CategoriesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final categoriesAsync = ref.watch(categoryControllerProvider);
+    final categoriesAsync = ref.watch(categoriesProvider);
 
     return Scaffold(
       appBar: const RefilyAppBar(appBarName: 'Categories'),
@@ -32,11 +32,10 @@ class CategoriesScreen extends ConsumerWidget {
             ),
             itemBuilder: (context, index) {
               final category = categories[index];
-
               return InkWell(
                 borderRadius: BorderRadius.circular(12),
                 onTap: () {
-                  context.push(AppRoutes.categoryProduct, extra: category.id);
+                  context.push(AppRoutes.categoryProduct, extra: category.categoryId);
                 },
                 child: CategoryCard(category: category),
               );
