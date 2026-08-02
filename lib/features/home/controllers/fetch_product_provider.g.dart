@@ -85,7 +85,7 @@ final class ProductCategoriesProvider
   }
 }
 
-String _$productCategoriesHash() => r'e8e3505937961a246403c4897fca7bbbedbbbe0e';
+String _$productCategoriesHash() => r'b825f09372dcf6952bdde6c3d24b7ccd7f73b4fa';
 
 @ProviderFor(SearchQuery)
 final searchQueryProvider = SearchQueryProvider._();
@@ -235,4 +235,4 @@ final class FilteredProductsProvider
   }
 }
 
-String _$filteredProductsHash() => r'd02bd16ae41a08939a1d32ad4c0918c1b2272615';
+String _$filteredProductsHash() => r'2609f39abd8dfd4dbaf48870259d6654546bb7c5';

@@ -1,4 +1,4 @@
-import 'package:refily/features/categories/presentation/controllers/category_controller.dart';
+import 'package:refily/features/categories/providers/categories_provider.dart';
 import 'package:refily/features/product/data/models/product.dart';
 import 'package:refily/features/product/providers/product_datasource_providers.dart';
 import 'package:refily/features/product/providers/products_stream_provider.dart';
@@ -16,7 +16,7 @@ Stream<List<Product>> fetchProducts(Ref ref) {
 
 @riverpod
 Future<List<String>> productCategories(Ref ref) async {
-  final catgeories = await ref.watch(categoryControllerProvider.future);
+  final catgeories = await ref.watch(categoriesProvider.future);
   return catgeories.map((c) => c.name).toList();
 }
 
@@ -50,7 +50,7 @@ AsyncValue<List<Product>> filteredProducts(Ref ref) {
   final activeCategoryName = ref.watch(selectedCategoryProvider).trim();
 
   //  Category Catalog Extract
-  final categoriesCatalog = ref.watch(categoryControllerProvider).value ?? [];
+  final categoriesCatalog = ref.watch(categoriesProvider).value ?? [];
 
   // Active Category Name -> categoryId
   int? targetCategoryId;
@@ -59,10 +59,10 @@ AsyncValue<List<Product>> filteredProducts(Ref ref) {
         .where((c) => c.name.trim().toLowerCase() == activeCategoryName.toLowerCase())
         .firstOrNull;
 
-    targetCategoryId = matchedCategory?.id;
+    targetCategoryId = matchedCategory?.categoryId;
   }
 
-  // 4. Zero-Latency Synchronous Filter Pipeline
+  //  Zero-Latency Synchronous Filter Pipeline
   return productsAsync.whenData((productList) {
     return productList.where((product) {
       // Category Filter Match
