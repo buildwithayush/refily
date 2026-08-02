@@ -6,8 +6,8 @@ part 'category.g.dart';
 @freezed
 abstract class Category with _$Category {
   const factory Category({
-    required int id,
     required String name,
+    @JsonKey(name: 'id') required int categoryId,
     @JsonKey(name: 'image_url') required String imageUrl,
     @JsonKey(name: 'updated_at') required DateTime updatedAt,
   }) = _Category;

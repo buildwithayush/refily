@@ -22,7 +22,7 @@ class CategoryIsarModel {
 
   Category toDomain() {
     return Category(
-      id: id,
+      categoryId: categoryId,
       name: name,
       imageUrl: imageUrl,
       updatedAt: updatedAt,
@@ -33,7 +33,7 @@ class CategoryIsarModel {
     return CategoryIsarModel(
       imageUrl: category.imageUrl,
       name: category.name,
-      categoryId: category.id,
+      categoryId: category.categoryId,
       updatedAt: category.updatedAt,
     );
   }
