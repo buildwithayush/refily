@@ -55,4 +55,4 @@ final class CategoryRepositoryProvider
 }
 
 String _$categoryRepositoryHash() =>
-    r'c8cad14c909349c58295600c010dbac8d9b03e0c';
+    r'9fbaf08f75974852d3c9381a332b97fb69f48b53';
