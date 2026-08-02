@@ -7,14 +7,17 @@ class CategorySupabaseDatasource {
 
   CategorySupabaseDatasource(this._client);
 
-  Future<List<Category>> getCategoriesByIds(List<int> categoryIds) async {
-    if (categoryIds.isEmpty) return [];
-
-    final response = await _client
+  Future<List<Category>> fetchActiveCategories({DateTime? updatedAfter}) async {
+    var query = _client
         .from('categories')
         .select()
-        .inFilter('id', categoryIds)
         .not('image_url', 'is', null);
+
+    if (updatedAfter != null) {
+      query = query.gt('updated_at', updatedAfter.toUtc().toIso8601String());
+    }
+
+    final response = await query;
 
     final rawDataList = List<Map<String, dynamic>>.from(response);
 
