@@ -1,18 +1,37 @@
+import 'package:refily/features/categories/data/datasource/local/categories_local_datasource.dart';
 import 'package:refily/features/categories/data/datasource/remote/category_supabse_datasource.dart';
 import 'package:refily/features/categories/domain/models/category.dart';
+import 'package:refily/features/categories/domain/models/category_isar_model.dart';
 import 'package:refily/features/categories/domain/repositories/category_repostiory.dart';
-import 'package:refily/features/product/domain/repositories/product_repository.dart';
 
 class CategoryRepositoryImpl implements CategoryRepository {
-  final CategorySupabaseDatasource _datasource;
-  final ProductRepository _productRepository;
+  final CategoriesLocalDatasource _localDatasource;
+  final CategorySupabaseDatasource _remoteDatasource;
 
-  CategoryRepositoryImpl(this._datasource, this._productRepository);
+  CategoryRepositoryImpl(this._localDatasource, this._remoteDatasource);
 
   @override
-  Future<List<Category>> fetchActiveCategories() async {
-    final products = await _productRepository.watchAllProducts().first;
-    final targetIds = products.map((p) => p.categoryId).toSet().toList();
-    return await _datasource.getCategoriesByIds(targetIds);
+  Future<List<Category>> getCategories() async {
+    final localModels = await _localDatasource.getAllCategories();
+    return localModels.map((m) => m.toDomain()).toList();
+  }
+
+  @override
+  Future<void> syncCategoriesWithRemote() async {
+    try {
+      final lastTimeSync = await _localDatasource.getLastUpdatedAt();
+
+      final remoteCatgeories = await _remoteDatasource.fetchActiveCategories(
+        updatedAfter: lastTimeSync,
+      );
+      if (remoteCatgeories.isNotEmpty) {
+        final isarModels = remoteCatgeories
+            .map((category) => CategoryIsarModel.fromDomain(category))
+            .toList();
+        await _localDatasource.saveCategories(isarModels);
+      }
+    } catch (e) {
+      //
+    }
   }
 }

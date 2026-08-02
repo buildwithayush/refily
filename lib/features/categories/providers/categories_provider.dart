@@ -2,10 +2,15 @@ import 'package:refily/features/categories/domain/models/category.dart';
 import 'package:refily/features/categories/presentation/controllers/category_repository_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'category_controller.g.dart';
+part 'categories_provider.g.dart';
 
-@riverpod
-Future<List<Category>> categoryController(Ref ref) {
+@Riverpod(keepAlive: true)
+Future<List<Category>> categories(Ref ref)async{
   final repository = ref.watch(categoryRepositoryProvider);
-  return repository.fetchActiveCategories();
+
+  
+  await repository.syncCategoriesWithRemote();
+
+  
+  return repository.getCategories();
 }

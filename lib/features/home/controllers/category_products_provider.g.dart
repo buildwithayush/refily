@@ -69,7 +69,7 @@ final class FetchCategoryProductProvider
 }
 
 String _$fetchCategoryProductHash() =>
-    r'9ae75b84c2f80515ac576f7f1fabb9223281cf37';
+    r'21f4a3b51237708016596e7f42eab0dbadfb1aa8';
 
 /// FETCH PRODUCTS BY TARGET CATEGORY ID
 
