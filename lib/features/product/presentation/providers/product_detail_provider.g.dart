@@ -58,7 +58,7 @@ final class ProductDetailProvider
   }
 }
 
-String _$productDetailHash() => r'f6dc847a54b9d51c24d6ff14a429e92c222f7647';
+String _$productDetailHash() => r'ab75d49d567f7eced259816dfc0776866239aa23';
 
 final class ProductDetailFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<Product>, int> {
@@ -137,7 +137,7 @@ final class RelatedProductsProvider
   }
 }
 
-String _$relatedProductsHash() => r'b28344060c492b16221c3945af9b3629a65f7ac8';
+String _$relatedProductsHash() => r'fc6613c8c544171b659387a0f32c1ac2e0571cdd';
 
 final class RelatedProductsFamily extends $Family
     with
