@@ -6,17 +6,12 @@ part 'product_detail_provider.g.dart';
 
 @riverpod
 Future<Product> productDetail(Ref ref, int productId) async {
-  final datasource = ref.watch(productSupabaseDatasourceProvider);
-  final rawList = await datasource.getAllProducts();
-
-  final allProducts = rawList.map((json) => Product.fromJson(json)).toList();
-
-  return allProducts.firstWhere(
-    (product) => product.id == productId,
-    orElse: () => throw Exception(
-      'Target product item not found inside global storage collections',
-    ),
-  );
+  final datasource = ref.watch(productLocalDatasourceProvider);
+  final isarProduct = await datasource.getProductByRemoteId(productId);
+  if (isarProduct == null || isarProduct.isDeleted) {
+    throw Exception('Product with ID $productId not found in local storage.');
+  }
+  return isarProduct.toDomain();
 }
 
 @riverpod
@@ -25,17 +20,24 @@ Future<List<Product>> relatedProducts(
   required int categoryId,
   required int currentProductId,
 }) async {
-  final datasource = ref.watch(productSupabaseDatasourceProvider);
-  final rawList = await datasource.getAllProducts();
-  final allProducts = rawList.map((json) => Product.fromJson(json)).toList();
+  final datasource = ref.watch(productLocalDatasourceProvider);
+  final isarData = await datasource.getProductsByCategory(categoryId);
 
-  List<Product> matches = allProducts
-      .where((p) => p.categoryId == categoryId && p.id != currentProductId)
+  List<Product> matches = isarData
+      .where(
+        (model) =>
+            model.categoryId == categoryId && model.id != currentProductId,
+      )
+      .map((model) => model.toDomain())
       .toList();
 
   if (matches.length < 3) {
-    final fallbacks = allProducts
-        .where((p) => p.categoryId != categoryId && p.id != currentProductId)
+    final fallbacks = isarData
+        .where(
+          (model) =>
+              model.categoryId != categoryId && model.id != currentProductId,
+        )
+        .map((model) => model.toDomain())
         .toList();
     matches.addAll(fallbacks);
   }
