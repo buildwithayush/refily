@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:refily/core/router/app_routes.dart';
 import 'package:refily/core/theme/theme_extension.dart';
+import 'package:refily/core/widgets/network/cached_product_image.dart';
 import 'package:refily/features/product/data/models/product.dart';
 import 'package:refily/features/product/presentation/providers/product_detail_provider.dart';
 
@@ -69,14 +70,10 @@ class RelatedProductsList extends ConsumerWidget {
                               topLeft: Radius.circular(12),
                               topRight: Radius.circular(12),
                             ),
-                            child: Image.network(
-                              product.images.first,
+                            child: AppCachedImage(
+                              imageUrl: product.images.first,
                               fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) =>
-                                  const Icon(
-                                    Icons.broken_image_outlined,
-                                    size: 40,
-                                  ),
+                              width: double.infinity,
                             ),
                           ),
                           // 2. Info Content
