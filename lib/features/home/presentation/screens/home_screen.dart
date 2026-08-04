@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:refily/core/router/app_routes.dart';
 import 'package:refily/core/theme/theme_extension.dart';
+import 'package:refily/core/widgets/network/cached_product_image.dart';
 import 'package:refily/features/cart/presentation/controller/cart_controller.dart';
 import 'package:refily/features/home/banner/providers/banner_images_provider.dart';
 import 'package:refily/features/home/banner/widgets/home_banner_slider.dart';
@@ -227,15 +228,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                       .colorScheme
                                       .surfaceContainerHighest
                                       .withValues(alpha: 0.3),
-                                  child: Image.network(
-                                    product.images.first,
+                                  child: AppCachedImage(
+                                    imageUrl: product.images.first,
                                     fit: BoxFit.cover,
-                                    errorBuilder:
-                                        (context, error, stackTrace) =>
-                                            const Icon(
-                                              Icons.broken_image_outlined,
-                                              size: 40,
-                                            ),
+                                    width: double.infinity,
                                   ),
                                 ),
                               ),

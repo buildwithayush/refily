@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:refily/core/theme/theme_extension.dart';
+import 'package:refily/core/widgets/network/cached_product_image.dart';
 import 'package:refily/features/cart/presentation/controller/cart_controller.dart';
 
 class CartScreen extends ConsumerStatefulWidget {
@@ -121,14 +122,10 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               padding: const EdgeInsets.all(8),
-                              child: Image.network(
-                                cartItem.product.images.first,
+                              child: AppCachedImage(
+                                imageUrl: cartItem.product.images.first,
                                 fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) =>
-                                    const Icon(
-                                      Icons.broken_image_outlined,
-                                      size: 40,
-                                    ),
+                                width: double.infinity,
                               ),
                             ),
                             const SizedBox(width: 14),
