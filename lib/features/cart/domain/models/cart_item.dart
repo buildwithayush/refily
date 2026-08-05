@@ -1,15 +1,15 @@
-import 'package:refily/features/product/data/models/product.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class CartItem {
-  final Product product;
-  final int quantity;
-
-  CartItem({required this.product, required this.quantity});
-
-  CartItem copyWith({Product? product, int? quantity}) {
-    return CartItem(
-      product: product ?? this.product,
-      quantity: quantity ?? this.quantity,
-    );
-  }
+part 'cart_item.freezed.dart';
+@freezed
+abstract class CartItem with _$CartItem {
+  const factory CartItem({
+    required int productId,
+    required String name,
+    required String brand,
+    required double price,
+    required String image,
+    required double rating,
+    @Default(1) int quantity,
+  }) = _CartItem;
 }
