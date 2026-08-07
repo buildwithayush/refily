@@ -4,6 +4,7 @@ part 'cart_item.freezed.dart';
 @freezed
 abstract class CartItem with _$CartItem {
   const factory CartItem({
+    required int id,
     required int productId,
     required String name,
     required String brand,
