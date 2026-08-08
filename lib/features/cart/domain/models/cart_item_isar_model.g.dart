@@ -60,6 +60,8 @@ int serializeCartItemIsarModel(IsarWriter writer, CartItemIsarModel object) {
 
 @isarProtected
 CartItemIsarModel deserializeCartItemIsarModel(IsarReader reader) {
+  final int _id;
+  _id = IsarCore.readId(reader);
   final int _productId;
   _productId = IsarCore.readLong(reader, 1);
   final String _name;
@@ -75,6 +77,7 @@ CartItemIsarModel deserializeCartItemIsarModel(IsarReader reader) {
   final int _quantity;
   _quantity = IsarCore.readLong(reader, 7);
   final object = CartItemIsarModel(
+    id: _id,
     productId: _productId,
     name: _name,
     brand: _brand,
@@ -83,7 +86,6 @@ CartItemIsarModel deserializeCartItemIsarModel(IsarReader reader) {
     rating: _rating,
     quantity: _quantity,
   );
-  object.id = IsarCore.readId(reader);
   return object;
 }
 
