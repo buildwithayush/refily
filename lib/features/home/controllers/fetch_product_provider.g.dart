@@ -9,44 +9,44 @@ part of 'fetch_product_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(fetchProduct)
-final fetchProductProvider = FetchProductProvider._();
+@ProviderFor(fetchProducts)
+final fetchProductsProvider = FetchProductsProvider._();
 
-final class FetchProductProvider
+final class FetchProductsProvider
     extends
         $FunctionalProvider<
           AsyncValue<List<Product>>,
           List<Product>,
-          FutureOr<List<Product>>
+          Stream<List<Product>>
         >
-    with $FutureModifier<List<Product>>, $FutureProvider<List<Product>> {
-  FetchProductProvider._()
+    with $FutureModifier<List<Product>>, $StreamProvider<List<Product>> {
+  FetchProductsProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'fetchProductProvider',
+        name: r'fetchProductsProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$fetchProductHash();
+  String debugGetCreateSourceHash() => _$fetchProductsHash();
 
   @$internal
   @override
-  $FutureProviderElement<List<Product>> $createElement(
+  $StreamProviderElement<List<Product>> $createElement(
     $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
+  ) => $StreamProviderElement(pointer);
 
   @override
-  FutureOr<List<Product>> create(Ref ref) {
-    return fetchProduct(ref);
+  Stream<List<Product>> create(Ref ref) {
+    return fetchProducts(ref);
   }
 }
 
-String _$fetchProductHash() => r'523db7f3193c2b45eb839bf3b25d03304ddfbb41';
+String _$fetchProductsHash() => r'3ab8964f4aadcae3d90d912eefea5c9ec03f25ee';
 
 @ProviderFor(productCategories)
 final productCategoriesProvider = ProductCategoriesProvider._();
@@ -85,7 +85,7 @@ final class ProductCategoriesProvider
   }
 }
 
-String _$productCategoriesHash() => r'3ce784d219030bfcd75dd2062c12d8c1681f6acb';
+String _$productCategoriesHash() => r'b825f09372dcf6952bdde6c3d24b7ccd7f73b4fa';
 
 @ProviderFor(SearchQuery)
 final searchQueryProvider = SearchQueryProvider._();
@@ -190,41 +190,49 @@ abstract class _$SelectedCategory extends $Notifier<String> {
   }
 }
 
-@ProviderFor(filteredCategory)
-final filteredCategoryProvider = FilteredCategoryProvider._();
+@ProviderFor(filteredProducts)
+final filteredProductsProvider = FilteredProductsProvider._();
 
-final class FilteredCategoryProvider
+final class FilteredProductsProvider
     extends
         $FunctionalProvider<
           AsyncValue<List<Product>>,
-          List<Product>,
-          FutureOr<List<Product>>
+          AsyncValue<List<Product>>,
+          AsyncValue<List<Product>>
         >
-    with $FutureModifier<List<Product>>, $FutureProvider<List<Product>> {
-  FilteredCategoryProvider._()
+    with $Provider<AsyncValue<List<Product>>> {
+  FilteredProductsProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'filteredCategoryProvider',
+        name: r'filteredProductsProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$filteredCategoryHash();
+  String debugGetCreateSourceHash() => _$filteredProductsHash();
 
   @$internal
   @override
-  $FutureProviderElement<List<Product>> $createElement(
+  $ProviderElement<AsyncValue<List<Product>>> $createElement(
     $ProviderPointer pointer,
-  ) => $FutureProviderElement(pointer);
+  ) => $ProviderElement(pointer);
 
   @override
-  FutureOr<List<Product>> create(Ref ref) {
-    return filteredCategory(ref);
+  AsyncValue<List<Product>> create(Ref ref) {
+    return filteredProducts(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(AsyncValue<List<Product>> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<AsyncValue<List<Product>>>(value),
+    );
   }
 }
 
-String _$filteredCategoryHash() => r'de78f053920c3002aa3f1abd47a1b91f4dae438f';
+String _$filteredProductsHash() => r'2609f39abd8dfd4dbaf48870259d6654546bb7c5';

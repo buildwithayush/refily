@@ -1,31 +1,23 @@
-import 'package:refily/features/categories/presentation/controllers/category_controller.dart';
+import 'package:refily/features/categories/providers/categories_provider.dart';
 import 'package:refily/features/product/data/models/product.dart';
-import 'package:refily/features/product/providers/product_datasource_provider.dart';
+import 'package:refily/features/product/providers/product_datasource_providers.dart';
+import 'package:refily/features/product/providers/products_stream_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'fetch_product_provider.g.dart';
 
 @riverpod
-Future<List<Product>> fetchProduct(Ref ref) async {
-  final datasource = ref.watch(productSupabaseDatasourceProvider);
-  final rawList = await datasource.getAllProducts();
-  return rawList.map((json) => Product.fromJson(json)).toList();
+Stream<List<Product>> fetchProducts(Ref ref) {
+  final datasource = ref.watch(productLocalDatasourceProvider);
+  return datasource.watchActiveProducts().map(
+    (isarModels) => isarModels.map((m) => m.toDomain()).toList(),
+  );
 }
 
 @riverpod
 Future<List<String>> productCategories(Ref ref) async {
-  final datasource = ref.watch(productSupabaseDatasourceProvider);
-  final rawList = await datasource.getAllProducts();
-
-  final allProducts = rawList.map((json) => Product.fromJson(json)).toList();
-  final categoriesCatalog = await ref.watch(categoryControllerProvider.future);
-
-  final usedCategoryIds = allProducts.map((p) => p.categoryId).toSet();
-
-  return categoriesCatalog
-      .where((c) => usedCategoryIds.contains(c.id))
-      .map((c) => c.name)
-      .toList();
+  final catgeories = await ref.watch(categoriesProvider.future);
+  return catgeories.map((c) => c.name).toList();
 }
 
 @riverpod
@@ -48,63 +40,48 @@ class SelectedCategory extends _$SelectedCategory {
   }
 }
 
-
 @riverpod
-Future<List<Product>> filteredCategory(Ref ref) async {
+AsyncValue<List<Product>> filteredProducts(Ref ref) {
+  //  Primary Isar Stream Watch
+  final productsAsync = ref.watch(productsStreamProvider);
+
+  //  UI Input States Read
   final query = ref.watch(searchQueryProvider).trim().toLowerCase();
+  final activeCategoryName = ref.watch(selectedCategoryProvider).trim();
 
-  
-  if (query.isNotEmpty) {
-    
-    bool isCancelled = false;
+  //  Category Catalog Extract
+  final categoriesCatalog = ref.watch(categoriesProvider).value ?? [];
 
-   
-    final keepAliveLink = ref.keepAlive();
-
-    
-    ref.onDispose(() {
-      isCancelled = true;
-      keepAliveLink
-          .close(); 
-    });
-
-    // 350ms hold execution framework for fast keyboard entry loops
-    await Future.delayed(const Duration(milliseconds: 350));
-
-    // Critical state check validation return drop path
-    if (isCancelled) return [];
-  }
-
-  //  Fetch remote source catalog matrix safely after the debounce gate passes
-  final datasource = ref.watch(productSupabaseDatasourceProvider);
-  final rawList = await datasource.getAllProducts();
-  final allProducts = rawList.map((json) => Product.fromJson(json)).toList();
-
-  final activeCategoryName = ref.watch(selectedCategoryProvider);
-  final categoriesCatalog = await ref.watch(categoryControllerProvider.future);
-
-  //  SECURE RE-MAPPING FOR STRING CATEGORIES TO INTEGER ID
+  // Active Category Name -> categoryId
   int? targetCategoryId;
-  if (activeCategoryName != 'All') {
-    final matchedCategory = categoriesCatalog.firstWhere(
-      (c) => c.name.toLowerCase() == activeCategoryName.toLowerCase(),
-      orElse: () => throw Exception(
-        'Correlated active category identifier missing in layout state map',
-      ),
-    );
-    targetCategoryId = matchedCategory.id;
+  if (activeCategoryName.toLowerCase() != 'all' && categoriesCatalog.isNotEmpty) {
+    final matchedCategory = categoriesCatalog
+        .where((c) => c.name.trim().toLowerCase() == activeCategoryName.toLowerCase())
+        .firstOrNull;
+
+    targetCategoryId = matchedCategory?.categoryId;
   }
 
-  //  DATA FILTERING LOOP
-  return allProducts.where((product) {
-    final matchesCategories =
-        activeCategoryName == 'All' || product.categoryId == targetCategoryId;
+  //  Zero-Latency Synchronous Filter Pipeline
+  return productsAsync.whenData((productList) {
+    return productList.where((product) {
+      // Category Filter Match
+      bool matchesCategory = true;
+      if (activeCategoryName.toLowerCase() != 'all') {
+        if (targetCategoryId != null) {
+          // ID level matching
+          matchesCategory = (product.categoryId == targetCategoryId);
+        } else {
+          matchesCategory = true; 
+        }
+      }
 
-    final matchesSearch =
-        query.isEmpty ||
-        product.name.toLowerCase().contains(query) ||
-        product.brand.toLowerCase().contains(query);
+      // Search Text Filter Match (Name or Brand)
+      final matchesSearch = query.isEmpty ||
+          product.name.toLowerCase().contains(query) ||
+          product.brand.toLowerCase().contains(query);
 
-    return matchesCategories && matchesSearch;
-  }).toList();
+      return matchesCategory && matchesSearch;
+    }).toList();
+  });
 }

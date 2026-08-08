@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:refily/core/theme/theme_extension.dart';
+import 'package:refily/core/widgets/network/cached_product_image.dart';
 import 'package:refily/features/categories/domain/models/category.dart';
 
 class CategoryCard extends StatelessWidget {
@@ -23,11 +24,10 @@ class CategoryCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
-                child: Image.network(
-                  category.imageUrl,
-                  fit: BoxFit.contain,
-                  errorBuilder: (context, error, stackTrace) =>
-                      const Icon(Icons.broken_image_outlined, size: 40),
+                child: AppCachedImage(
+                  imageUrl: category.imageUrl,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
                 ),
               ),
               const SizedBox(height: 14),

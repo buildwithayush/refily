@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:refily/core/theme/theme_extension.dart';
+import 'package:refily/core/widgets/network/cached_product_image.dart';
 import 'package:refily/features/product/data/models/product.dart';
 import 'package:refily/features/wishlist/presentation/controllers/wishlist_controller.dart';
 
@@ -37,11 +38,10 @@ class WishlistItemCard extends ConsumerWidget {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: Image.network(
-                        product.images.first,
+                      child: AppCachedImage(
+                        imageUrl: product.images.first,
                         fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) =>
-                            const Icon(Icons.broken_image_outlined, size: 40),
+                        width: double.infinity,
                       ),
                     ),
                   ),

@@ -23,6 +23,12 @@ abstract class Product with _$Product {
     required int stock,
     required Map<String, String> specifications,
     required List<String> tags,
+
+    @JsonKey(name: 'updated_at')
+    required DateTime updatedAt,
+
+    @JsonKey(name: 'is_deleted') @Default(false)
+    bool isDeleted,
   }) = _Product;
 
   factory Product.fromJson(Map<String, dynamic> json) =>

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'category_controller.dart';
+part of 'categories_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,10 +9,10 @@ part of 'category_controller.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(categoryController)
-final categoryControllerProvider = CategoryControllerProvider._();
+@ProviderFor(categories)
+final categoriesProvider = CategoriesProvider._();
 
-final class CategoryControllerProvider
+final class CategoriesProvider
     extends
         $FunctionalProvider<
           AsyncValue<List<Category>>,
@@ -20,19 +20,19 @@ final class CategoryControllerProvider
           FutureOr<List<Category>>
         >
     with $FutureModifier<List<Category>>, $FutureProvider<List<Category>> {
-  CategoryControllerProvider._()
+  CategoriesProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'categoryControllerProvider',
-        isAutoDispose: true,
+        name: r'categoriesProvider',
+        isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$categoryControllerHash();
+  String debugGetCreateSourceHash() => _$categoriesHash();
 
   @$internal
   @override
@@ -42,9 +42,8 @@ final class CategoryControllerProvider
 
   @override
   FutureOr<List<Category>> create(Ref ref) {
-    return categoryController(ref);
+    return categories(ref);
   }
 }
 
-String _$categoryControllerHash() =>
-    r'520fc650c83586f0f8ba6cb4e1842e8750794ae2';
+String _$categoriesHash() => r'c4cf0e6e38e168fcf60322e8b1a54e63f176cf3f';

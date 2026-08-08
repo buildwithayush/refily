@@ -45,4 +45,17 @@ class ProductSupabaseDatasource {
 
     return List<Map<String, dynamic>>.from(response);
   }
+
+  Future<List<Map<String, dynamic>>> getProductsUpdatedAfter(
+    DateTime? lastUpdatedAt,
+  ) async {
+    var query = _client.from('products').select();
+
+    if (lastUpdatedAt != null) {
+      query.gt('updated_at', lastUpdatedAt.toUtc().toIso8601String());
+    }
+
+    final response = await query;
+    return List<Map<String, dynamic>>.from(response);
+  }
 }

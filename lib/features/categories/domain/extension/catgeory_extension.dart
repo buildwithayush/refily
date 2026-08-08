@@ -11,14 +11,14 @@ extension CategoryListX on List<Category> {
 
     // 1. Direct ID match
     try {
-      return firstWhere((cat) => cat.id == targetId).name;
+      return firstWhere((cat) => cat.categoryId == targetId).name;
     } catch (_) {}
 
     // 2. Product list fallback match
     if (fallbackProducts != null && fallbackProducts.isNotEmpty) {
       final productCatId = fallbackProducts.first.categoryId;
       try {
-        return firstWhere((cat) => cat.id == productCatId).name;
+        return firstWhere((cat) => cat.categoryId == productCatId).name;
       } catch (_) {}
     }
 

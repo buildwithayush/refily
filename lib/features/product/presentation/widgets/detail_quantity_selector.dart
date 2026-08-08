@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:refily/core/theme/theme_extension.dart';
-import 'package:refily/features/cart/presentation/controller/cart_controller.dart';
+import 'package:refily/features/cart/providers/cart_providers.dart';
+import 'package:refily/features/categories/domain/extension/product_mappers_ext.dart';
 import 'package:refily/features/product/data/models/product.dart';
 
 class DetailQuantitySelector extends ConsumerWidget {
@@ -10,10 +11,26 @@ class DetailQuantitySelector extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final cartMap = ref.watch(cartControllerProvider);
-    final isInCart = cartMap.containsKey(product.id);
-    final currentQty = isInCart ? cartMap[product.id]!.quantity : 0;
+    //  Listen to continuous cart stream
+    final cartListAsync = ref.watch(cartStreamProvider);
 
+    // 2 Extract cart items or default to empty list
+    final cartList = cartListAsync.maybeWhen(
+      data: (items) => items,
+      orElse: () => [],
+    );
+
+    //  Find if current product is already in cart
+    final cartItemIndex = cartList.indexWhere(
+      (item) => item.productId == product.id,
+    );
+    final isInCart = cartItemIndex != -1;
+    final currentItem = isInCart ? cartList[cartItemIndex] : null;
+   
+
+    //  Prepare CartItem for increment/decrement operations
+    final cartItem = currentItem ?? product.toCartItem();
+ final currentQty = currentItem?.quantity ?? 0;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
@@ -43,9 +60,11 @@ class DetailQuantitySelector extends ConsumerWidget {
                         children: [
                           IconButton(
                             icon: const Icon(Icons.remove),
-                            onPressed: () => ref
-                                .read(cartControllerProvider.notifier)
-                                .decrementQuantity(product.id),
+                            onPressed: () {
+                              ref
+                                  .read(cartRepositoryProvider)
+                                  .decrementItem(cartItem);
+                            },
                           ),
                           Text(
                             '$currentQty',
@@ -53,9 +72,11 @@ class DetailQuantitySelector extends ConsumerWidget {
                           ),
                           IconButton(
                             icon: const Icon(Icons.add),
-                            onPressed: () => ref
-                                .read(cartControllerProvider.notifier)
-                                .addToCart(product),
+                            onPressed: () {
+                              ref
+                                  .read(cartRepositoryProvider)
+                                  .incrementItem(cartItem);
+                            },
                           ),
                         ],
                       ),
@@ -74,17 +95,15 @@ class DetailQuantitySelector extends ConsumerWidget {
                           ? null
                           : () {
                               ref
-                                  .read(cartControllerProvider.notifier)
-                                  .addToCart(product);
+                                  .read(cartRepositoryProvider)
+                                  .incrementItem(cartItem);
                             },
                       child: Text(
                         product.stock <= 0 ? "Out of Stock" : "Add to Cart",
                       ),
                     ),
             ),
-            const SizedBox(width: 16),
-
-            // Right Side: Buy Now Button
+            const SizedBox(width: 12),
             Expanded(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(

@@ -6,6 +6,6 @@ part 'banner_images_provider.g.dart';
 
 @riverpod
 Future<List<BannerModel>> banner(Ref ref) async {
-  await Future.delayed(const Duration(seconds: 2));
-  return mockBannerList; 
+  await Future.delayed(const Duration(seconds: 1));
+  return mockBannerList;
 }

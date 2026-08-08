@@ -3,9 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:refily/core/router/app_routes.dart';
 import 'package:refily/core/theme/theme_extension.dart';
+import 'package:refily/core/widgets/network/cached_product_image.dart';
 import 'package:refily/features/categories/domain/extension/catgeory_extension.dart';
-import 'package:refily/features/categories/presentation/controllers/category_controller.dart';
 import 'package:refily/features/categories/presentation/widgets/product_grid_skeleton.dart';
+import 'package:refily/features/categories/providers/categories_provider.dart';
 import 'package:refily/features/home/controllers/category_products_provider.dart';
 
 class CategoryProductsScreen extends ConsumerWidget {
@@ -16,7 +17,7 @@ class CategoryProductsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final productsAsync = ref.watch(fetchCategoryProductProvider(categoryId));
-    final categoriesAsync = ref.watch(categoryControllerProvider);
+    final categoriesAsync = ref.watch(categoriesProvider);
     final String categoryTitle = categoriesAsync.when(
       data: (categoriesList) => categoriesList.findCategoryName(
         targetId: categoryId,
@@ -65,14 +66,11 @@ class CategoryProductsScreen extends ConsumerWidget {
                               borderRadius: const BorderRadius.vertical(
                                 top: Radius.circular(12),
                               ),
-                              child: Image.network(
-                                product.images.first,
+                              child: AppCachedImage(
+                                imageUrl: product.images.first,
                                 fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) =>
-                                    const Icon(
-                                      Icons.broken_image_outlined,
-                                      size: 40,
-                                    ),
+                                width: double.infinity,
+
                               ),
                             ),
                           ),

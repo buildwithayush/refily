@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:refily/core/theme/theme_extension.dart';
-import 'package:refily/features/cart/presentation/controller/cart_controller.dart';
+import 'package:refily/core/widgets/network/cached_product_image.dart';
+import 'package:refily/features/cart/providers/cart_providers.dart';
 
 class CartScreen extends ConsumerStatefulWidget {
   const CartScreen({super.key});
@@ -16,11 +17,11 @@ class _CartScreenState extends ConsumerState<CartScreen> {
     final theme = Theme.of(context);
 
     // * STATE PROVIDERS
-    final cartList = ref.watch(cartListProvider);
-    final cartListItems = ref.watch(cartCountProvider);
+    final cartAsync = ref.watch(cartStreamProvider);
+    final cartListItemQuantity = ref.watch(cartTotalCountProvider);
 
     // * COMPUTED PROVIDERS
-    final totalAmount = ref.watch(cartTotalProvider);
+    final totalAmount = ref.watch(cartTotalPriceProvider);
 
     return Scaffold(
       // Premium subtle background color
@@ -46,7 +47,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                   const Spacer(),
 
                   Text(
-                    '$cartListItems Items',
+                    '$cartListItemQuantity Items',
                     style: context.textTheme.titleMedium,
                   ),
                 ],
@@ -55,7 +56,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
           ),
         ),
       ),
-      body: cartListItems == 0
+      body: cartListItemQuantity == 0
           ? Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -84,115 +85,127 @@ class _CartScreenState extends ConsumerState<CartScreen> {
               children: [
                 // 1. Cart Items List
                 Expanded(
-                  child: ListView.builder(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 12,
-                    ),
-                    itemCount: cartList.length,
-                    itemBuilder: (context, index) {
-                      final cartItem = cartList[index];
-                      final itemTotal =
-                          cartItem.product.price * cartItem.quantity;
-
-                      return Container(
-                        margin: const EdgeInsets.only(bottom: 12),
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: theme.colorScheme.surface,
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.02),
-                              blurRadius: 8,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
+                  child: cartAsync.when(
+                    data: (cartItems) {
+                      if (cartItems.isEmpty) {
+                        return const Center(child: Text('Your Cart Is Empty'));
+                      }
+                      return ListView.builder(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
                         ),
-                        child: Row(
-                          children: [
-                            // Product Image Container
-                            Container(
-                              height: 80,
-                              width: 80,
-                              decoration: BoxDecoration(
-                                color: theme.colorScheme.surfaceContainerHighest
-                                    .withValues(alpha: 0.3),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              padding: const EdgeInsets.all(8),
-                              child: Image.network(
-                                cartItem.product.images.first,
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) =>
-                                    const Icon(
-                                      Icons.broken_image_outlined,
-                                      size: 40,
-                                    ),
-                              ),
-                            ),
-                            const SizedBox(width: 14),
+                        itemCount: cartItems.length,
+                        itemBuilder: (context, index) {
+                          final cartItem = cartItems[index];
+                          final itemTotal = cartItem.price * cartItem.quantity;
 
-                            // Product Details (Name & Price)
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    cartItem.product.name,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: context.textTheme.titleMedium,
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Text(
-                                    "₹$itemTotal",
-                                    style: context.textTheme.titleMedium,
-                                  ),
-                                ],
-                              ),
+                          return Container(
+                            margin: const EdgeInsets.only(bottom: 12),
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: theme.colorScheme.surface,
+                              borderRadius: BorderRadius.circular(16),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withValues(alpha: 0.02),
+                                  blurRadius: 8,
+                                  offset: const Offset(0, 4),
+                                ),
+                              ],
                             ),
+                            child: Row(
+                              children: [
+                                // Product Image Container
+                                Container(
+                                  height: 80,
+                                  width: 80,
+                                  decoration: BoxDecoration(
+                                    color: theme
+                                        .colorScheme
+                                        .surfaceContainerHighest
+                                        .withValues(alpha: 0.3),
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  padding: const EdgeInsets.all(8),
+                                  child: AppCachedImage(
+                                    imageUrl: cartItem.image,
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
+                                  ),
+                                ),
+                                const SizedBox(width: 14),
 
-                            // Quantity Controls Stack (Add / Minus / Counter)
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  IconButton(
-                                    constraints: const BoxConstraints(),
-                                    padding: const EdgeInsets.all(8),
-                                    icon: const Icon(Icons.remove, size: 16),
-                                    onPressed: () => ref
-                                        .read(cartControllerProvider.notifier)
-                                        .decrementQuantity(cartItem.product.id),
+                                // Product Details (Name & Price)
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        cartItem.name,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: context.textTheme.titleMedium,
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        "₹$itemTotal",
+                                        style: context.textTheme.titleMedium,
+                                      ),
+                                    ],
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 4.0,
-                                    ),
-                                    child: Text(
-                                      '${cartItem.quantity}',
-                                      style: context.textTheme.titleMedium,
-                                    ),
+                                ),
+
+                                // Quantity Controls Stack (Add / Minus / Counter)
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
-                                  IconButton(
-                                    constraints: const BoxConstraints(),
-                                    padding: const EdgeInsets.all(8),
-                                    icon: const Icon(Icons.add, size: 16),
-                                    onPressed: () => ref
-                                        .read(cartControllerProvider.notifier)
-                                        .addToCart(cartItem.product),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      IconButton(
+                                        constraints: const BoxConstraints(),
+                                        padding: const EdgeInsets.all(8),
+                                        icon: const Icon(
+                                          Icons.remove,
+                                          size: 16,
+                                        ),
+                                        onPressed: () => ref
+                                            .read(cartRepositoryProvider)
+                                            .decrementItem(cartItem),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 4.0,
+                                        ),
+                                        child: Text(
+                                          '${cartItem.quantity}',
+                                          style: context.textTheme.titleMedium,
+                                        ),
+                                      ),
+                                      IconButton(
+                                        constraints: const BoxConstraints(),
+                                        padding: const EdgeInsets.all(8),
+                                        icon: const Icon(Icons.add, size: 16),
+                                        onPressed: () => ref
+                                            .read(cartRepositoryProvider)
+                                            .incrementItem(cartItem),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          );
+                        },
                       );
                     },
+                    error: (_, _) =>
+                        const Center(child: Text('Failed to load cart items')),
+                    loading: () =>
+                        const Center(child: CircularProgressIndicator()),
                   ),
                 ),
 
