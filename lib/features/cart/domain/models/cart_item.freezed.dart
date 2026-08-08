@@ -213,7 +213,7 @@ return $default(_that.id,_that.productId,_that.name,_that.brand,_that.price,_tha
 
 
 class _CartItem implements CartItem {
-  const _CartItem({required this.id, required this.productId, required this.name, required this.brand, required this.price, required this.image, required this.rating, this.quantity = 1});
+  const _CartItem({required this.id, required this.productId, required this.name, required this.brand, required this.price, required this.image, required this.rating, required this.quantity});
   
 
 @override final  int id;
@@ -223,7 +223,7 @@ class _CartItem implements CartItem {
 @override final  double price;
 @override final  String image;
 @override final  double rating;
-@override@JsonKey() final  int quantity;
+@override final  int quantity;
 
 /// Create a copy of CartItem
 /// with the given fields replaced by the non-null parameter values.

@@ -11,6 +11,6 @@ abstract class CartItem with _$CartItem {
     required double price,
     required String image,
     required double rating,
-    @Default(1) int quantity,
+    required int quantity,
   }) = _CartItem;
 }
