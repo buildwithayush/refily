@@ -5,7 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:refily/core/router/app_routes.dart';
 import 'package:refily/core/theme/theme_extension.dart';
 import 'package:refily/core/widgets/network/cached_product_image.dart';
-import 'package:refily/features/cart/presentation/controller/cart_controller.dart';
+import 'package:refily/features/cart/providers/cart_providers.dart';
+import 'package:refily/features/categories/domain/extension/product_mappers_ext.dart';
 import 'package:refily/features/home/banner/providers/banner_images_provider.dart';
 import 'package:refily/features/home/banner/widgets/home_banner_slider.dart';
 import 'package:refily/features/home/controllers/fetch_product_provider.dart';
@@ -272,11 +273,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                           ),
                                           onTap: () {
                                             ref
-                                                .read(
-                                                  cartControllerProvider
-                                                      .notifier,
-                                                )
-                                                .addToCart(product);
+                                                .read(cartRepositoryProvider)
+                                                .incrementItem(
+                                                  product.toCartItem(),
+                                                );
 
                                             //* SnackBar
                                             ScaffoldMessenger.of(
