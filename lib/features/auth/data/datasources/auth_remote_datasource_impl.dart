@@ -1,4 +1,4 @@
-import 'package:refily/features/auth/datasources/auth_remote_datasource.dart';
+import 'package:refily/features/auth/data/datasources/auth_remote_datasource.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
