@@ -35,8 +35,10 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDarkMode = ref.watch(themeProvider);
+    final router = ref.watch(routerProviderProvider);
+
     return MaterialApp.router(
-      routerConfig: AppRouter.goRouter,
+      routerConfig: router,
       debugShowCheckedModeBanner: false,
       title: 'Refily',
       theme: TAppTheme.lightTheme,
