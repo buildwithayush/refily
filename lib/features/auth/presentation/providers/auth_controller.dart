@@ -27,7 +27,7 @@ class AuthController extends _$AuthController {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       final repository = ref.read(authRepositoryProvider);
-      repository.signIn(email: email, password: password);
+      await repository.signIn(email: email, password: password);
     });
   }
 
@@ -35,10 +35,7 @@ class AuthController extends _$AuthController {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
       final repository = ref.read(authRepositoryProvider);
-      repository.signOut();
+      await repository.signOut();
     });
-
   }
 }
-
-
