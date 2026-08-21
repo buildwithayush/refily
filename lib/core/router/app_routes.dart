@@ -1,5 +1,6 @@
-abstract final class AppRoutes  {
+abstract final class AppRoutes {
   static const login = '/login';
+  static const signup = '/signup';
   static const home = '/home';
   static const category = '/category';
   static const categoryProduct = '/categoryProduct';
@@ -7,5 +8,5 @@ abstract final class AppRoutes  {
   static const wishlist = '/wishlist';
   static const profile = '/profile';
   static const settings = '/settings';
-   static const productDetails = '/productDetails';
+  static const productDetails = '/productDetails';
 }
