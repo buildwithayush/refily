@@ -2,7 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:refily/core/router/app_routes.dart';
 import 'package:refily/features/auth/presentation/providers/auth_controller.dart';
 import 'package:refily/features/auth/presentation/screens/login_screen.dart';
-import 'package:refily/features/auth/presentation/screens/signup_screen.dart';
+import 'package:refily/features/auth/presentation/screens/sign_up_screen.dart';
 import 'package:refily/features/cart/presentation/screens/cart_screen.dart';
 import 'package:refily/features/categories/presentation/screens/categories_product_screen.dart';
 import 'package:refily/features/categories/presentation/screens/categories_screen.dart';
@@ -54,7 +54,7 @@ GoRouter routerProvider(Ref ref) {
       ),
       GoRoute(
         path: AppRoutes.signup,
-        builder: (context, state) => const SignupScreen(),
+        builder: (context, state) => const SignUpScreen(),
       ),
       ShellRoute(
         builder: (context, state, child) {
