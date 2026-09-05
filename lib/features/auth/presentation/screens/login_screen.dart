@@ -128,7 +128,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     obscureText: _obscurePassword,
                     textInputAction: TextInputAction.done,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    onFieldSubmitted: (_) => _handleSignup(),
+                    onFieldSubmitted: (_) => _handleSignin(),
                     decoration: InputDecoration(
                       labelText: 'Password',
                       prefixIcon: const Icon(Icons.lock_outline_rounded),
@@ -162,7 +162,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
                   // Submit Button
                   FilledButton(
-                    onPressed: isLoading ? null : _handleSignup,
+                    onPressed: isLoading ? null : _handleSignin,
                     style: FilledButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
@@ -223,7 +223,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     );
   }
 
-  Future<void> _handleSignup() async {
+  Future<void> _handleSignin() async {
     if (!_formKey.currentState!.validate()) return;
     FocusScope.of(context).unfocus();
 
